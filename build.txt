@@ -1,0 +1,3 @@
+displayName = Terraria ARC Raiders
+author = ba5ik7
+version = 0.1
