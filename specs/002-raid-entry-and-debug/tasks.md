@@ -25,7 +25,7 @@ description: "Task list for Raid Entry & Debug Controls"
 **Purpose**: Ensure the project has the minimal scaffolding needed to add adapter-level features cleanly.
 
 - [x] T001 Confirm branch builds and tests run locally via `dotnet test` (baseline)
-- [ ] T002 [P] Add documentation links for this feature in README.md (optional) or keep scope limited to specs only
+- [x] T002 [P] Add documentation links for this feature in README.md (optional) or keep scope limited to specs only
 
 ---
 
