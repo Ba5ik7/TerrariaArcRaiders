@@ -17,6 +17,28 @@ namespace TerrariaArcRaiders.Adapters.Systems
         internal static ArcWorldData WorldData { get; private set; } = ArcWorldData.NonArc();
         internal static ArcWorldSelection Selection { get; private set; } = ArcWorldSelection.FromSeedText(null);
 
+        public static bool TryGetHubRegion(out IntRect hub)
+        {
+            hub = default;
+            if (!IsArcWorld || WorldData == null)
+            {
+                return false;
+            }
+
+            hub = WorldData.SafeHubRegion;
+            return hub.IsValid;
+        }
+
+        public static IReadOnlyList<ArcReservedSite> GetReservedSites()
+        {
+            if (!IsArcWorld || WorldData == null || WorldData.ReservedSites == null)
+            {
+                return Array.Empty<ArcReservedSite>();
+            }
+
+            return WorldData.ReservedSites;
+        }
+
         public override void OnWorldUnload()
         {
             ResetToNonArc();
@@ -103,6 +125,10 @@ namespace TerrariaArcRaiders.Adapters.Systems
                 EnsureSafeHubRegion();
                 ArcWorldGenLog.Info("Arc world detected (load)");
             }
+            else
+            {
+                ResetToNonArc();
+            }
         }
 
         private static void EnsureSafeHubRegion()
@@ -115,6 +141,11 @@ namespace TerrariaArcRaiders.Adapters.Systems
             if (!WorldData.SafeHubRegion.IsValid)
             {
                 WorldData.SafeHubRegion = new IntRect(0, 0, 1, 1);
+            }
+
+            if (WorldData.DataVersion <= 0)
+            {
+                WorldData.DataVersion = ArcWorldData.CurrentDataVersion;
             }
         }
 
