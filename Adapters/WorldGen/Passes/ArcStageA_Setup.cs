@@ -6,11 +6,14 @@ using TerrariaArcRaiders.Core.WorldGen;
 
 namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 {
-    internal class ArcStageA_Setup : GenPass
+    internal class ArcStageA_Setup : GenPass, IArcWorldGenPass
     {
         public ArcStageA_Setup() : base("Arc Stage A - World Tagging & Setup", 0.5f)
         {
         }
+
+        public ArcWorldGenStage Stage => ArcWorldGenStage.StageA_Setup;
+        public GenPass AsGenPass() => this;
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {

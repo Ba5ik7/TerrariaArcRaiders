@@ -8,11 +8,14 @@ using TerrariaArcRaiders.Core.WorldGen;
 
 namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 {
-    internal class ArcStageC_RegionPlanning : GenPass
+    internal class ArcStageC_RegionPlanning : GenPass, IArcWorldGenPass
     {
         public ArcStageC_RegionPlanning() : base("Arc Stage C - Region Planning", 0.75f)
         {
         }
+
+        public ArcWorldGenStage Stage => ArcWorldGenStage.StageC_RegionPlanning;
+        public GenPass AsGenPass() => this;
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {

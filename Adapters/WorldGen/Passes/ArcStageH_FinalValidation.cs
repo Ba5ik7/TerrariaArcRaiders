@@ -6,11 +6,14 @@ using TerrariaArcRaiders.Core.WorldGen;
 
 namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 {
-    internal class ArcStageH_FinalValidation : GenPass
+    internal class ArcStageH_FinalValidation : GenPass, IArcWorldGenPass
     {
         public ArcStageH_FinalValidation() : base("Arc Stage H - Final Validation", 0.5f)
         {
         }
+
+        public ArcWorldGenStage Stage => ArcWorldGenStage.StageH_FinalValidation;
+        public GenPass AsGenPass() => this;
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {

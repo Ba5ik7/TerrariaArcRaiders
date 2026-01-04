@@ -17,17 +17,8 @@ namespace TerrariaArcRaiders.Adapters.Systems
                 return;
             }
 
-            var arcPasses = new List<GenPass>
-            {
-                new ArcStageA_Setup(),
-                new ArcStageB_BaseTerrain(),
-                new ArcStageC_RegionPlanning(),
-                new ArcStageD_BiomePainting(),
-                new ArcStageE_StructureReservation(),
-                new ArcStageF_StructurePlacement(),
-                new ArcStageG_RaidAnchors(),
-                new ArcStageH_FinalValidation(),
-            };
+            var pipeline = ArcWorldGenPipeline.CreateWithDefaultPasses();
+            var arcPasses = pipeline.BuildOrderedPasses();
 
             // Prepend Arc passes to run before vanilla tasks while keeping vanilla tasks for now (placeholder layout).
             tasks.InsertRange(0, arcPasses);
