@@ -53,3 +53,8 @@ Verify that raids can be entered/exited in-game via a hub interaction, and that 
 ## Notes
 
 This feature intentionally treats spawn as the hub and does not add worldgen or persistent tiles.
+
+## Manual Verification Log (2026-01-04)
+
+- Player-facing entry/exit: Not run in this environment (headless editor). Requires tModLoader client; expected flow matches acceptance criteria.
+- Refusal cases: Not run in this environment. Needs in-game validation that already-in-raid and not-in-raid refusals show once per cooldown.
