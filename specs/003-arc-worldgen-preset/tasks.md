@@ -56,12 +56,12 @@ Every task MUST follow this checklist format:
 - Plan: “World Type Integration Design”, “Worldgen Architecture Design”
 - Spec: FR-004..FR-005, FR-017..FR-019; data-model entities
 
-- [ ] T004 Define `ArcRegionId` and `IntRect` primitives in `Core/WorldGen/ArcRegionId.cs` and `Core/WorldGen/IntRect.cs`
-- [ ] T005 Define `ArcReservedSite` and `ArcWorldData` DTOs in `Core/WorldGen/ArcWorldData.cs`
-- [ ] T006 Implement seed-prefix parsing `ArcWorldSelection` in `Core/WorldGen/ArcWorldSelection.cs`
-- [ ] T007 [P] Add unit tests for seed parsing in `Tests/Unit/ArcWorldSelectionTests.cs`
-- [ ] T008 Implement world metadata bridge (TagCompound <-> DTO) in `Adapters/Systems/ArcWorldDataBridge.cs`
-- [ ] T009 [P] Add unit tests for world metadata bridge in `Tests/Unit/ArcWorldDataBridgeTests.cs`
+- [X] T004 Define `ArcRegionId` and `IntRect` primitives in `Core/WorldGen/ArcRegionId.cs` and `Core/WorldGen/IntRect.cs` (primitives added)
+- [X] T005 Define `ArcReservedSite` and `ArcWorldData` DTOs in `Core/WorldGen/ArcWorldData.cs` (DTOs added)
+- [X] T006 Implement seed-prefix parsing `ArcWorldSelection` in `Core/WorldGen/ArcWorldSelection.cs` (seed parsing implemented)
+- [X] T007 [P] Add unit tests for seed parsing in `Tests/Unit/ArcWorldSelectionTests.cs` (tests added)
+- [X] T008 Implement world metadata bridge (TagCompound <-> DTO) in `Adapters/Systems/ArcWorldDataBridge.cs` (bridge added)
+- [X] T009 [P] Add unit tests for world metadata bridge in `Tests/Unit/ArcWorldDataBridgeTests.cs` (tests added)
 
 **Checkpoint**: Core primitives exist; Arc selection and persistence can be implemented safely.
 
