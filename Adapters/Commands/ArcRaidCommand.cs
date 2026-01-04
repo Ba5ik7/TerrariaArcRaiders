@@ -1,9 +1,9 @@
-using System;
 using Terraria.ModLoader;
+using TerrariaArcRaiders.Adapters.Systems;
 
 namespace TerrariaArcRaiders.Adapters.Commands
 {
-    // Dev-only raid command skeleton; behavior will be added in later tasks.
+    // Dev-only raid command; behavior is gated and implemented incrementally in later tasks.
     public class ArcRaidCommand : ModCommand
     {
         private const string UsageText = "/arcraid <enter|exit|toggle>";
@@ -18,6 +18,16 @@ namespace TerrariaArcRaiders.Adapters.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
+            var config = ArcRaidersConfig.Instance;
+            var devToolsEnabled = config?.DevToolsEnabled == true;
+
+            if (!devToolsEnabled)
+            {
+                caller.Reply(RaidUiNotifications.DevToolsDisabled);
+                caller.Reply($"Usage: {UsageText}");
+                return;
+            }
+
             if (args.Length == 0)
             {
                 caller.Reply($"Usage: {UsageText}");
@@ -30,7 +40,7 @@ namespace TerrariaArcRaiders.Adapters.Commands
                 case "enter":
                 case "exit":
                 case "toggle":
-                    caller.Reply("Dev command stub: behavior not yet implemented.");
+                    caller.Reply($"Dev command ready: '{verb}' will be wired to raid interactions in the next task.");
                     break;
                 default:
                     caller.Reply($"Usage: {UsageText}");
