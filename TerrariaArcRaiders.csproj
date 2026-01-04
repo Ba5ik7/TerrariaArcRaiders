@@ -5,12 +5,15 @@
 
 	<!-- General -->
 	<PropertyGroup>
-		
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 	</PropertyGroup>
 
 	<!-- References -->
 	<ItemGroup>
-		
+		<Compile Include="TerrariaArcRaiders.cs" />
+		<Compile Include="Core\**\*.cs" />
+		<Compile Include="Adapters\**\*.cs" />
+		<Compile Include="Tests\Unit\**\*.cs" />
 	</ItemGroup>
 
 </Project>

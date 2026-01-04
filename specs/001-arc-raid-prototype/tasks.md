@@ -5,12 +5,13 @@
 
 ## Phase 1: Setup (Shared Infrastructure)
 
-- [ ] T001 Establish feature directories per plan in TerrariaArcRaiders/Core/, TerrariaArcRaiders/Adapters/, TerrariaArcRaiders/Tests/Unit/ and ensure project file includes them
+- [X] T001 Establish feature directories per plan in TerrariaArcRaiders/Core/, TerrariaArcRaiders/Adapters/, TerrariaArcRaiders/Tests/Unit/ and ensure project file includes them
   - Goal/Scope: Prepare folders and csproj includes so subsequent slices compile.
   - Acceptance: Build succeeds; new folders exist; no behavior changes.
   - Architecture: No logic; structure only.
   - Constraints: Avoid unintended item edits; keep setup minimal.
   - Links: [plan structure](specs/001-arc-raid-prototype/plan.md#L23-L57)
+  - Notes: Directories created and csproj now includes Core/Adapters/Tests globs; build succeeded.
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
