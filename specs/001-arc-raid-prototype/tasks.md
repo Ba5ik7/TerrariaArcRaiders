@@ -107,11 +107,12 @@
 
 **Goal**: Stash survives reloads and remains harmless when mod disabled.
 
-- [ ] T013 [US3] Ensure stash save/load via ModPlayer or ModSystem with safe-ignore on missing data
+- [X] T013 [US3] Ensure stash save/load via ModPlayer or ModSystem with safe-ignore on missing data
   - Acceptance: Save->quit->reload preserves stash; missing data loads safely with defaults; no crashes if mod disabled.
   - Architecture: Uses IRaidPersistence with TagCompound; defensive parsing.
   - Constraints: World safety; decoupled persistence; performance on load/save.
   - Links: [plan persistence safety](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec US3](specs/001-arc-raid-prototype/spec.md#L60-L82), [spec FR-007](specs/001-arc-raid-prototype/spec.md#L68-L70)
+  - Notes: Added per-player stash SaveData/LoadData with defensive parsing and hardened ModSystem load to ignore corrupt entries, preserving world load safety.
 
 - [ ] T014 [P] [US3] Add persistence round-trip tests and disable-mode simulation
   - Acceptance: Round-trip retains stash; simulate absence/corrupt data returns defaults without exception.

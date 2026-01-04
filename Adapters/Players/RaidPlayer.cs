@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Core.Models;
 using TerrariaArcRaiders.Core.Services;
@@ -77,6 +78,35 @@ namespace TerrariaArcRaiders.Adapters.Players
             _session = null;
             _ = RaidSystem.GetOrCreateStash(PlayerId);
             _respawnToHub = false;
+        }
+
+        public override void SaveData(TagCompound tag)
+        {
+            var stash = RaidSystem.GetOrCreateStash(PlayerId);
+            var dto = RaidSystem.Persistence.Save(stash, sessionSnapshot: null);
+            tag[nameof(RaidSystem.Stashes)] = TagCompoundBridge.ToTagCompound(dto);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            _respawnToHub = false;
+
+            if (!tag.ContainsKey(nameof(RaidSystem.Stashes)))
+            {
+                return;
+            }
+
+            try
+            {
+                var stashTag = tag.Get<TagCompound>(nameof(RaidSystem.Stashes));
+                var dto = TagCompoundBridge.FromTagCompound(stashTag);
+                var stash = RaidSystem.GetOrCreateStash(PlayerId);
+                RaidSystem.Persistence.Load(dto, stash, out _);
+            }
+            catch
+            {
+                // Ignore corrupt data to keep world loads safe.
+            }
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)

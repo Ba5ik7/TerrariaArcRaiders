@@ -90,15 +90,22 @@ namespace TerrariaArcRaiders.Adapters.Systems
             var stashRoot = tag.Get<TagCompound>(StashKey);
             foreach (var pair in stashRoot)
             {
-                if (pair.Value is not TagCompound stashTag)
+                try
                 {
-                    continue;
-                }
+                    if (pair.Value is not TagCompound stashTag)
+                    {
+                        continue;
+                    }
 
-                var dto = TagCompoundBridge.FromTagCompound(stashTag);
-                var stash = new Stash();
-                Persistence.Load(dto, stash, out _);
-                Stashes[pair.Key] = stash;
+                    var dto = TagCompoundBridge.FromTagCompound(stashTag);
+                    var stash = new Stash();
+                    Persistence.Load(dto, stash, out _);
+                    Stashes[pair.Key] = stash;
+                }
+                catch
+                {
+                    // Ignore corrupt stash entries to preserve world load safety.
+                }
             }
 
             InitializePortalFromTag(tag);
