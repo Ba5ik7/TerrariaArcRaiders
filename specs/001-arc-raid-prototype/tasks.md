@@ -78,11 +78,12 @@
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L96), [spec US1 acceptance 2](specs/001-arc-raid-prototype/spec.md#L23-L36)
   - Notes: Added exit interaction helper in RaidSystem that gates on active session, delegates extraction to RaidPlayer, and teleports player to spawn hub; no world edits.
 
-- [ ] T010 [US1] Add integration smoke test or adapter shim for entry -> loot -> extract flow
+- [X] T010 [US1] Add integration smoke test or adapter shim for entry -> loot -> extract flow
   - Acceptance: Simulated flow shows stash increases; raid inventory clears; no duplication.
   - Architecture: Uses services with stubbed adapters; minimal hook reliance.
   - Constraints: Testability; performance not critical.
   - Links: [plan tests](specs/001-arc-raid-prototype/plan.md#L125-L129), [spec SC-005](specs/001-arc-raid-prototype/spec.md#L126-L128)
+  - Notes: Added MSTest smoke covering enter->loot->extract via services; verifies stash gains scrap, raid inventory clears, and re-extract/extra loot do not duplicate.
 
 ## Phase 4: User Story 2 - Death Penalty In Raid (Priority: P2)
 
