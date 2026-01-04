@@ -60,3 +60,4 @@ This feature intentionally treats spawn as the hub and does not add worldgen or 
 - Refusal cases: Not run in this environment. Needs in-game validation that already-in-raid and not-in-raid refusals show once per cooldown.
 - Dev-only toggle: Not run in this environment. Validate in-game with dev tools enabled/disabled for enter/exit/toggle behaviors and gating message.
 - World safety: Not run in this environment. To validate: use hub console once, then disable the mod and load the same world to confirm safe load and no crashes; re-enable to confirm console respawns near spawn without leftover state.
+- Full quickstart: Not run in this environment. All steps require an interactive tModLoader session; no discrepancies noted from code review.

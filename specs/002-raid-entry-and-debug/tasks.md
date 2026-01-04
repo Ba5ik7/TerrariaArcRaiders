@@ -142,7 +142,7 @@ description: "Task list for Raid Entry & Debug Controls"
 **Purpose**: Small improvements across stories without changing scope.
 
 - [x] T017 [P] Tighten player messaging consistency (enter/exit/refusal) in Adapters/Systems/RaidUiNotifications.cs
-- [ ] T018 Run full manual quickstart checklist in specs/002-raid-entry-and-debug/quickstart.md and record any deltas
+- [x] T018 Run full manual quickstart checklist in specs/002-raid-entry-and-debug/quickstart.md and record any deltas
 
 ---
 
