@@ -6,6 +6,7 @@
 	<!-- General -->
 	<PropertyGroup>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<BuildTests>false</BuildTests>
 	</PropertyGroup>
 
 	<!-- References -->
@@ -13,7 +14,7 @@
 		<Compile Include="TerrariaArcRaiders.cs" />
 		<Compile Include="Core\**\*.cs" />
 		<Compile Include="Adapters\**\*.cs" />
-		<Compile Include="Tests\Unit\**\*.cs" />
+		<Compile Include="Tests\Unit\**\*.cs" Condition="'$(BuildTests)'=='true'" />
 	</ItemGroup>
 
 	<ItemGroup>
