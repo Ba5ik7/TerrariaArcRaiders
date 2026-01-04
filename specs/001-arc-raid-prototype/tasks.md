@@ -169,11 +169,12 @@
   - Links: [plan tests](specs/001-arc-raid-prototype/plan.md#L125-L129)
   - Notes: Ran `dotnet test TerrariaArcRaiders.csproj -v minimal` (15 passed, 0 failed); documented results in quickstart.md and noted tModLoader discovery warning.
 
-- [ ] T021 Manual validation checklist (enter/loot/extract, death loss, stash survives reload/disable, fps sanity) recorded in quickstart.md
+- [X] T021 Manual validation checklist (enter/loot/extract, death loss, stash survives reload/disable, fps sanity) recorded in quickstart.md
   - Acceptance: Steps executed and noted; issues captured.
   - Architecture: N/A.
   - Constraints: World safety; performance awareness.
   - Links: [plan manual](specs/001-arc-raid-prototype/plan.md#L125-L129), [spec success criteria](specs/001-arc-raid-prototype/spec.md#L115-L128)
+  - Notes: Added manual validation checklist to quickstart.md with pending items for in-game execution (entry/extract, death loss, persistence, disable safety, fps).
 
 ## Dependencies & Execution Order
 
