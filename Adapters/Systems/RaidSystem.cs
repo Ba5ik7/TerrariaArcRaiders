@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.Players;
+using TerrariaArcRaiders.Adapters.NPCs;
 using TerrariaArcRaiders.Core.Models;
 using TerrariaArcRaiders.Core.Services;
 
@@ -42,6 +44,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
             HasPortal = false;
             PortalTile = default;
             EnsurePortalInitialized();
+            EnsureHubConsoleExists();
         }
 
         public override void OnWorldUnload()
@@ -187,6 +190,29 @@ namespace TerrariaArcRaiders.Adapters.Systems
             }
 
             EnsurePortalInitialized();
+        }
+
+        private static void EnsureHubConsoleExists()
+        {
+            // Only the server/single-player host should spawn NPCs to avoid duplicates.
+            if (Main.netMode != NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+            {
+                return;
+            }
+
+            var consoleType = ModContent.NPCType<RaidHubConsoleNPC>();
+            foreach (var npc in Main.npc)
+            {
+                if (npc != null && npc.active && npc.type == consoleType)
+                {
+                    return;
+                }
+            }
+
+            var spawnWorldPosition = GetDefaultPortalTile();
+            var spawnPixelPosition = new Vector2(spawnWorldPosition.X * 16, spawnWorldPosition.Y * 16);
+            var source = new EntitySource_WorldEvent(nameof(RaidHubConsoleNPC));
+            NPC.NewNPC(source, (int)spawnPixelPosition.X, (int)spawnPixelPosition.Y, consoleType);
         }
     }
 }
