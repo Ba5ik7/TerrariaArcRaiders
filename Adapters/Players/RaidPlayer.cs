@@ -56,10 +56,16 @@ namespace TerrariaArcRaiders.Adapters.Players
                 return false;
             }
 
+            var inventoryFull = IsInventoryFull();
             var stash = RaidSystem.GetOrCreateStash(PlayerId);
             _sessionService.Extract(_session, stash);
             _session = null;
             Notify("Extraction successful. Stash updated.");
+
+            if (inventoryFull)
+            {
+                Notify("Player inventory is full; stash still updated.");
+            }
             return true;
         }
 
@@ -137,6 +143,19 @@ namespace TerrariaArcRaiders.Adapters.Players
         {
             var spawnPosition = new Vector2(Main.spawnTileX * 16, Main.spawnTileY * 16);
             Player.Teleport(spawnPosition, TeleportationStyleID.RodOfDiscord);
+        }
+
+        private bool IsInventoryFull()
+        {
+            for (var i = 0; i < Player.inventory.Length; i++)
+            {
+                if (Player.inventory[i].IsAir)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static void Notify(string message)

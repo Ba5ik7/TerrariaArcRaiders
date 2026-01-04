@@ -153,11 +153,12 @@
   - Links: [plan UX](specs/001-arc-raid-prototype/plan.md#L111-L117), [spec edge cases](specs/001-arc-raid-prototype/spec.md#L84-L95)
   - Notes: Added lightweight chat notifications in RaidPlayer for entry, extraction/stash update, and raid failure/death.
 
-- [ ] T019 Guard extraction when player inventory full and still update stash (stash separate)
+- [X] T019 Guard extraction when player inventory full and still update stash (stash separate)
   - Acceptance: Extraction succeeds; stash increments; clear message if player inventory cannot accept physical items (if any drop attempt happens).
   - Architecture: Adapter-level guard; uses stash transfer regardless of inventory space.
   - Constraints: World safety; loop integrity.
   - Links: [spec edge cases](specs/001-arc-raid-prototype/spec.md#L84-L95)
+  - Notes: Added inventory-full check in RaidPlayer extraction; stash updates regardless and emits notification when inventory has no empty slots.
 
 ## Phase 8: Test & QA Pass
 
