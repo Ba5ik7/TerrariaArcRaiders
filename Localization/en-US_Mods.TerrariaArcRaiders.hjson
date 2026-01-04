@@ -5,4 +5,18 @@ Items: {
 	}
 }
 
-NPCs.ArcDroneNPC.DisplayName: Arc Drone N P C
+NPCs: {
+	ArcDroneNPC.DisplayName: Arc Drone N P C
+	RaidHubConsoleNPC.DisplayName: Raid Hub Console N P C
+}
+
+Configs: {
+	ArcRaidersConfig: {
+		DisplayName: Arc Raiders Config
+
+		DevToolsEnabled: {
+			Label: Enable dev tools (raid entry/exit debug)
+			Tooltip: ""
+		}
+	}
+}

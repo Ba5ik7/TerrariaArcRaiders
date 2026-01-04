@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<!-- Import tModLoader mod properties -->
-	<Import Project="..\tModLoader.targets" />
+	<!-- Skip tModLoader packaging when running headless tests (BuildTests=true) to avoid invoking game build targets. -->
+	<Import Project="..\tModLoader.targets" Condition="'$(BuildTests)'!='true'" />
 
 	<!-- General -->
 	<PropertyGroup>
@@ -9,12 +10,23 @@
 		<BuildTests>false</BuildTests>
 	</PropertyGroup>
 
-	<!-- References -->
-	<ItemGroup>
+	<!-- Test-only build settings (headless, no tML targets) -->
+	<PropertyGroup Condition="'$(BuildTests)'=='true'">
+		<TargetFramework>net8.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<!-- Compile items for normal mod build -->
+	<ItemGroup Condition="'$(BuildTests)'!='true'">
 		<Compile Include="TerrariaArcRaiders.cs" />
 		<Compile Include="Core\**\*.cs" />
 		<Compile Include="Adapters\**\*.cs" />
-		<Compile Include="Tests\Unit\**\*.cs" Condition="'$(BuildTests)'=='true'" />
+	</ItemGroup>
+
+	<!-- Compile items for headless test build -->
+	<ItemGroup Condition="'$(BuildTests)'=='true'">
+		<Compile Include="Core\**\*.cs" />
+		<Compile Include="Tests\Unit\**\*.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

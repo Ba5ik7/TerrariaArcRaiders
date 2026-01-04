@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.Players;
+using TerrariaArcRaiders.Adapters.NPCs;
 using TerrariaArcRaiders.Core.Models;
 using TerrariaArcRaiders.Core.Services;
 
@@ -42,6 +44,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
             HasPortal = false;
             PortalTile = default;
             EnsurePortalInitialized();
+            EnsureHubConsoleExists();
         }
 
         public override void OnWorldUnload()
@@ -63,16 +66,8 @@ namespace TerrariaArcRaiders.Adapters.Systems
 
             tag[StashKey] = stashRoot;
 
-            if (HasPortal)
-            {
-                var portalTag = new TagCompound
-                {
-                    [PortalXKey] = PortalTile.X,
-                    [PortalYKey] = PortalTile.Y
-                };
-
-                tag[PortalKey] = portalTag;
-            }
+            // Do not persist portal metadata: the hub console and portal anchor are derived from spawn each load.
+            // This keeps worlds robust if the feature is removed and avoids unnecessary world data writes.
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -176,17 +171,50 @@ namespace TerrariaArcRaiders.Adapters.Systems
 
         private static void InitializePortalFromTag(TagCompound tag)
         {
-            if (tag.ContainsKey(PortalKey))
+            try
             {
-                var portalTag = tag.Get<TagCompound>(PortalKey);
-                var x = portalTag.GetInt(PortalXKey);
-                var y = portalTag.GetInt(PortalYKey);
-                PortalTile = new Point(x, y);
-                HasPortal = true;
-                return;
+                if (tag.ContainsKey(PortalKey))
+                {
+                    var portalTag = tag.Get<TagCompound>(PortalKey);
+                    if (portalTag != null && portalTag.ContainsKey(PortalXKey) && portalTag.ContainsKey(PortalYKey))
+                    {
+                        var x = portalTag.GetInt(PortalXKey);
+                        var y = portalTag.GetInt(PortalYKey);
+                        PortalTile = new Point(x, y);
+                        HasPortal = true;
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore corrupt portal metadata to preserve world load safety.
             }
 
             EnsurePortalInitialized();
+        }
+
+        private static void EnsureHubConsoleExists()
+        {
+            // Only the server/single-player host should spawn NPCs to avoid duplicates.
+            if (Main.netMode != NetmodeID.Server && Main.netMode != NetmodeID.SinglePlayer)
+            {
+                return;
+            }
+
+            var consoleType = ModContent.NPCType<RaidHubConsoleNPC>();
+            foreach (var npc in Main.npc)
+            {
+                if (npc != null && npc.active && npc.type == consoleType)
+                {
+                    return;
+                }
+            }
+
+            var spawnWorldPosition = GetDefaultPortalTile();
+            var spawnPixelPosition = new Vector2(spawnWorldPosition.X * 16, spawnWorldPosition.Y * 16);
+            var source = new EntitySource_WorldEvent(nameof(RaidHubConsoleNPC));
+            NPC.NewNPC(source, (int)spawnPixelPosition.X, (int)spawnPixelPosition.Y, consoleType);
         }
     }
 }
