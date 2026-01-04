@@ -35,6 +35,7 @@ namespace TerrariaArcRaiders.Adapters.Players
 
             _session = _sessionService.StartSession(PlayerId);
             _sessionService.ActivateSession(_session);
+            Notify("Entering ARC raid zone.");
             return true;
         }
 
@@ -58,6 +59,7 @@ namespace TerrariaArcRaiders.Adapters.Players
             var stash = RaidSystem.GetOrCreateStash(PlayerId);
             _sessionService.Extract(_session, stash);
             _session = null;
+            Notify("Extraction successful. Stash updated.");
             return true;
         }
 
@@ -71,6 +73,7 @@ namespace TerrariaArcRaiders.Adapters.Players
             _sessionService.Fail(_session);
             _session = null;
             _respawnToHub = true;
+            Notify("Raid failed. Scrap lost.");
         }
 
         public override void OnEnterWorld()
@@ -134,6 +137,11 @@ namespace TerrariaArcRaiders.Adapters.Players
         {
             var spawnPosition = new Vector2(Main.spawnTileX * 16, Main.spawnTileY * 16);
             Player.Teleport(spawnPosition, TeleportationStyleID.RodOfDiscord);
+        }
+
+        private static void Notify(string message)
+        {
+            Main.NewText(message);
         }
     }
 }

@@ -146,11 +146,12 @@
 
 ## Phase 7: Minimal UX Hooks & Messaging
 
-- [ ] T018 Add simple notifications (entry, extract success, death loss, stash updated) via chat/onscreen text
+- [X] T018 Add simple notifications (entry, extract success, death loss, stash updated) via chat/onscreen text
   - Acceptance: Messages appear at each event; no UI beyond text; does not block gameplay.
   - Architecture: Hooks call shared notifier helper; no logic changes.
   - Constraints: Performance light; no world edits.
   - Links: [plan UX](specs/001-arc-raid-prototype/plan.md#L111-L117), [spec edge cases](specs/001-arc-raid-prototype/spec.md#L84-L95)
+  - Notes: Added lightweight chat notifications in RaidPlayer for entry, extraction/stash update, and raid failure/death.
 
 - [ ] T019 Guard extraction when player inventory full and still update stash (stash separate)
   - Acceptance: Extraction succeeds; stash increments; clear message if player inventory cannot accept physical items (if any drop attempt happens).
