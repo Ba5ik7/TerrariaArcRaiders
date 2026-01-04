@@ -38,9 +38,9 @@ Every task MUST follow this checklist format:
 **Scope notes**
 - Links: plan “Project Structure” + “Worldgen Architecture Design”, spec FR-008..FR-011.
 
-- [ ] T001 Create Arc worldgen folder structure `Core/WorldGen/` and `Adapters/WorldGen/`
-- [ ] T002 [P] Add feature docs index notes to `README.md` (link to `specs/003-arc-worldgen-preset/`)
-- [ ] T003 [P] Add a minimal debug logging helper for worldgen stages in `Adapters/WorldGen/ArcWorldGenLog.cs`
+- [X] T001 Create Arc worldgen folder structure `Core/WorldGen/` and `Adapters/WorldGen/` (folders added)
+- [X] T002 [P] Add feature docs index notes to `README.md` (link to `specs/003-arc-worldgen-preset/`) (docs index updated)
+- [X] T003 [P] Add a minimal debug logging helper for worldgen stages in `Adapters/WorldGen/ArcWorldGenLog.cs` (logging helper added)
 
 ---
 
