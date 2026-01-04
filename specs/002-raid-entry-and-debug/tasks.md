@@ -66,7 +66,7 @@ description: "Task list for Raid Entry & Debug Controls"
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Create hub console NPC skeleton in Adapters/NPCs/RaidHubConsoleNPC.cs
+- [x] T005 [P] [US1] Create hub console NPC skeleton in Adapters/NPCs/RaidHubConsoleNPC.cs
 - [ ] T006 [US1] Implement hub console spawn/anchor near spawn in Adapters/Systems/RaidSystem.cs
 - [ ] T007 [US1] Implement NPC interaction routing: enter when not in raid; exit when in raid in Adapters/NPCs/RaidHubConsoleNPC.cs
 - [ ] T008 [US1] Add refusal messaging and anti-spam guard (cooldown or only-on-change) in Adapters/NPCs/RaidHubConsoleNPC.cs
