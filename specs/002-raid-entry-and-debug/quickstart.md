@@ -58,3 +58,4 @@ This feature intentionally treats spawn as the hub and does not add worldgen or 
 
 - Player-facing entry/exit: Not run in this environment (headless editor). Requires tModLoader client; expected flow matches acceptance criteria.
 - Refusal cases: Not run in this environment. Needs in-game validation that already-in-raid and not-in-raid refusals show once per cooldown.
+- Dev-only toggle: Not run in this environment. Validate in-game with dev tools enabled/disabled for enter/exit/toggle behaviors and gating message.

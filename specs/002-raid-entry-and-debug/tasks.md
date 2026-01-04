@@ -101,7 +101,7 @@ description: "Task list for Raid Entry & Debug Controls"
 - [x] T010 [P] [US2] Create command folder and command skeleton in Adapters/Commands/ArcRaidCommand.cs
 - [x] T011 [US2] Implement config gate check and usage messages in Adapters/Commands/ArcRaidCommand.cs
 - [x] T012 [US2] Implement `enter|exit|toggle` actions delegating to RaidSystem in Adapters/Commands/ArcRaidCommand.cs
-- [ ] T013 [US2] Manual verification pass: complete “Dev-only toggle” section in specs/002-raid-entry-and-debug/quickstart.md
+- [x] T013 [US2] Manual verification pass: complete “Dev-only toggle” section in specs/002-raid-entry-and-debug/quickstart.md
 
 **Checkpoint**: US2 is independently functional and testable
 
