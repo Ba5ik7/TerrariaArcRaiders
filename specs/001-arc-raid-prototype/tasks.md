@@ -114,11 +114,12 @@
   - Links: [plan persistence safety](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec US3](specs/001-arc-raid-prototype/spec.md#L60-L82), [spec FR-007](specs/001-arc-raid-prototype/spec.md#L68-L70)
   - Notes: Added per-player stash SaveData/LoadData with defensive parsing and hardened ModSystem load to ignore corrupt entries, preserving world load safety.
 
-- [ ] T014 [P] [US3] Add persistence round-trip tests and disable-mode simulation
+- [X] T014 [P] [US3] Add persistence round-trip tests and disable-mode simulation
   - Acceptance: Round-trip retains stash; simulate absence/corrupt data returns defaults without exception.
   - Architecture: Serializer tests; optionally hook shim.
   - Constraints: Testability; world safety.
   - Links: [plan tests](specs/001-arc-raid-prototype/plan.md#L111-L117), [spec SC-003](specs/001-arc-raid-prototype/spec.md#L118-L122)
+  - Notes: Added serializer tests covering round-trip, corrupt status, negative clamps, and missing stash key defaults to ensure safe loads.
 
 ## Phase 6: ARC Scrap Item & ARC Drone NPC (Enablers for US1 loot loop)
 
