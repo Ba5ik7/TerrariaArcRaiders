@@ -17,6 +17,9 @@ namespace TerrariaArcRaiders.Adapters.WorldGen
             pipeline.Register(new ArcStageB_BaseTerrain());
             pipeline.Register(new ArcStageC_RegionPlanning());
             pipeline.Register(new ArcStageD_BiomePainting());
+#if DEBUG
+            pipeline.Register(new ArcStageZ_TestMarker());
+#endif
             pipeline.Register(new ArcStageE_StructureReservation());
             pipeline.Register(new ArcStageF_StructurePlacement());
             pipeline.Register(new ArcStageG_RaidAnchors());

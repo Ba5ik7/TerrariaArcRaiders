@@ -144,8 +144,8 @@ Every task MUST follow this checklist format:
 - [X] T032 [US3] Define an adapter interface for passes in `Adapters/WorldGen/IArcWorldGenPass.cs` (interface added)
 - [X] T033 [US3] Implement stage registry in `Adapters/WorldGen/ArcWorldGenPipeline.cs` (pipeline + registration added)
 - [X] T034 [US3] Refactor stage pass wiring to use the pipeline registry in `Adapters/Systems/ArcWorldGenSystem.cs` (pipeline wired)
-- [ ] T035 [P] [US3] Add a sample “test stage” pass in `Adapters/WorldGen/Passes/ArcStageZ_TestMarker.cs` (debug-only)
-- [ ] T036 [US3] Document “how to add a new biome/structure pass” in `specs/003-arc-worldgen-preset/research.md`
+- [X] T035 [P] [US3] Add a sample “test stage” pass in `Adapters/WorldGen/Passes/ArcStageZ_TestMarker.cs` (debug-only) (test marker added)
+- [X] T036 [US3] Document “how to add a new biome/structure pass” in `specs/003-arc-worldgen-preset/research.md` (contributor steps added)
 
 **Checkpoint**: Adding a new pass is a small, localized change; stage order remains stable.
 

@@ -64,3 +64,26 @@ This document resolves planning unknowns and records key technical decisions wit
   - Enables unit tests for deterministic planning without requiring the game runtime.
 - **Alternatives considered**:
   - **All logic in ModSystem/GenPasses**: simplest, but hard to unit test and tends to grow into an unstructured monolith.
+
+## How to add a new Arc worldgen pass (contributors)
+
+This project uses a stage-based pipeline to keep Arc worldgen extensible. The key types are:
+
+- `ArcWorldGenStage` (Core): stable stage boundaries (A..H) to target when inserting new passes.
+- `IArcWorldGenPass` (Adapters): adapter interface that binds a pass to a stage and exposes the `GenPass` instance.
+- `ArcWorldGenPipeline` (Adapters): registry that maps stages to ordered pass lists and builds the final pass sequence.
+
+### Steps to add a pass (example: debug test marker)
+
+1) Create a pass that implements `IArcWorldGenPass` and derives from `GenPass`.
+  - Set `Stage` to the boundary you want (e.g., `ArcWorldGenStage.StageD_BiomePainting`).
+  - Implement the pass logic inside `ApplyPass`; avoid full-world scans—operate on planned rectangles when possible.
+
+2) Register the pass in `ArcWorldGenPipeline.CreateWithDefaultPasses()` at the desired boundary.
+  - Example (debug-only): `ArcStageZ_TestMarker` is registered under `#if DEBUG` to avoid affecting release builds.
+
+3) Keep adapters thin: any heavy planning should remain in `Core/WorldGen/` services, with adapters applying results.
+
+Concrete example:
+- Pass file: `Adapters/WorldGen/Passes/ArcStageZ_TestMarker.cs` (implements `IArcWorldGenPass`, logs stage order, debug-only).
+- Registration: `ArcWorldGenPipeline.CreateWithDefaultPasses()` adds `ArcStageZ_TestMarker` under `#if DEBUG`.
