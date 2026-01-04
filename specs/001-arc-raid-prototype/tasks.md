@@ -130,11 +130,12 @@
   - Links: [plan NPC/item](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec FR-006](specs/001-arc-raid-prototype/spec.md#L63-L65)
   - Notes: Added ModItem using ArcScrap descriptor for stack/value; no gameplay rules embedded.
 
-- [ ] T016 Implement ArcDrone ModNPC adapter with lightweight AI and drop delegation
+- [X] T016 Implement ArcDrone ModNPC adapter with lightweight AI and drop delegation
   - Acceptance: Spawns only in raid zone; AI avoids per-tick allocations; OnKill awards ARC Scrap via DropRules into active raid session.
   - Architecture: Thin adapter; AI helper in Core if needed; guards for active session.
   - Constraints: Performance discipline; loop integrity; decoupled rules.
   - Links: [plan NPC/item](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec FR-005](specs/001-arc-raid-prototype/spec.md#L61-L63)
+  - Notes: Added ArcDroneNPC with raid-only spawn gate and OnKill drop delegation to DropRules when session active; reuses vanilla AI style for lightweight behavior.
 
 - [ ] T017 [P] Add unit test for DropRules NPC kill -> raid inventory increment
   - Acceptance: Killing drone increases raid scrap once; no session => no award.
