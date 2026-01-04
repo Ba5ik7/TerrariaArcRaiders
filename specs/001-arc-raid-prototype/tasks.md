@@ -43,11 +43,12 @@
 
 **Goal**: Player enters raid zone, fights drones, extracts, and stash receives ARC Scrap.
 
-- [ ] T005 [US1] Implement `IRaidPersistence` interface and default TagCompound serializer in TerrariaArcRaiders/Core/Services/
+- [X] T005 [US1] Implement `IRaidPersistence` interface and default TagCompound serializer in TerrariaArcRaiders/Core/Services/
   - Acceptance: Can serialize stash and optional session snapshot; handles missing/corrupt data with safe defaults.
   - Architecture: DTO-layer only; no hooks.
   - Constraints: World safety; safe-disable readiness.
   - Links: [plan persistence](specs/001-arc-raid-prototype/plan.md#L76-L84), [spec FR-007](specs/001-arc-raid-prototype/spec.md#L68-L70)
+  - Notes: Added IRaidPersistence, TagCompoundDto, and RaidPersistence with stash/session snapshot save/load, safe defaults on missing/corrupt data; included unit tests; build clean.
 
 - [ ] T006 [US1] Add `Adapters/Systems/RaidSystem` for load/save wiring using `IRaidPersistence`
   - Acceptance: On world load/save, stash persists per player without corrupting vanilla; ignores missing data.
