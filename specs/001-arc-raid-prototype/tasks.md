@@ -137,11 +137,12 @@
   - Links: [plan NPC/item](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec FR-005](specs/001-arc-raid-prototype/spec.md#L61-L63)
   - Notes: Added ArcDroneNPC with raid-only spawn gate and OnKill drop delegation to DropRules when session active; reuses vanilla AI style for lightweight behavior.
 
-- [ ] T017 [P] Add unit test for DropRules NPC kill -> raid inventory increment
+- [X] T017 [P] Add unit test for DropRules NPC kill -> raid inventory increment
   - Acceptance: Killing drone increases raid scrap once; no session => no award.
   - Architecture: Service-level test; no tML needed.
   - Constraints: Testability; performance not critical.
   - Links: [plan tests](specs/001-arc-raid-prototype/plan.md#L125-L129), [spec FR-005](specs/001-arc-raid-prototype/spec.md#L61-L63)
+  - Notes: Added DropRules tests covering active session increment, finished session ignore, and null session ignore.
 
 ## Phase 7: Minimal UX Hooks & Messaging
 

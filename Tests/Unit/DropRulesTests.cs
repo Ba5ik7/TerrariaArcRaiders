@@ -31,5 +31,11 @@ namespace TerrariaArcRaiders.Tests.Unit
 
             Assert.AreEqual(0, session.RaidInventory.ArcScrapAmount);
         }
+
+        [TestMethod]
+        public void AwardDroneScrap_ignored_when_session_missing()
+        {
+            _dropRules.AwardDroneScrap(null);
+        }
     }
 }
