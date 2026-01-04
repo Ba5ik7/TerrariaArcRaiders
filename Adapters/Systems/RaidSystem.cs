@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TerrariaArcRaiders.Adapters.Players;
 using TerrariaArcRaiders.Core.Models;
 using TerrariaArcRaiders.Core.Services;
 
@@ -9,10 +12,17 @@ namespace TerrariaArcRaiders.Adapters.Systems
     public class RaidSystem : ModSystem
     {
         private const string StashKey = "raidStashes";
+        private const string PortalKey = "raidEntryPortal";
+        private const string PortalXKey = "x";
+        private const string PortalYKey = "y";
 
         internal static IRaidPersistence Persistence { get; set; } = new RaidPersistence();
 
         internal static Dictionary<string, Stash> Stashes { get; } = new();
+
+        internal static bool HasPortal { get; private set; }
+
+        internal static Point PortalTile { get; private set; }
 
         internal static Stash GetOrCreateStash(string playerId)
         {
@@ -25,9 +35,19 @@ namespace TerrariaArcRaiders.Adapters.Systems
             return stash;
         }
 
+        public override void OnWorldLoad()
+        {
+            Stashes.Clear();
+            HasPortal = false;
+            PortalTile = default;
+            EnsurePortalInitialized();
+        }
+
         public override void OnWorldUnload()
         {
             Stashes.Clear();
+            HasPortal = false;
+            PortalTile = default;
         }
 
         public override void SaveWorldData(TagCompound tag)
@@ -41,14 +61,28 @@ namespace TerrariaArcRaiders.Adapters.Systems
             }
 
             tag[StashKey] = stashRoot;
+
+            if (HasPortal)
+            {
+                var portalTag = new TagCompound
+                {
+                    [PortalXKey] = PortalTile.X,
+                    [PortalYKey] = PortalTile.Y
+                };
+
+                tag[PortalKey] = portalTag;
+            }
         }
 
         public override void LoadWorldData(TagCompound tag)
         {
             Stashes.Clear();
+            HasPortal = false;
+            PortalTile = default;
 
             if (!tag.ContainsKey(StashKey))
             {
+                InitializePortalFromTag(tag);
                 return;
             }
 
@@ -65,6 +99,56 @@ namespace TerrariaArcRaiders.Adapters.Systems
                 Persistence.Load(dto, stash, out _);
                 Stashes[pair.Key] = stash;
             }
+
+            InitializePortalFromTag(tag);
+        }
+
+        internal static bool TryInteractPortal(Player player)
+        {
+            EnsurePortalInitialized();
+
+            if (player == null)
+            {
+                return false;
+            }
+
+            var raidPlayer = player.GetModPlayer<RaidPlayer>();
+            return raidPlayer.TryEnterRaid();
+        }
+
+        private static void EnsurePortalInitialized()
+        {
+            if (HasPortal)
+            {
+                return;
+            }
+
+            var spawnTile = GetDefaultPortalTile();
+            PortalTile = spawnTile;
+            HasPortal = true;
+        }
+
+        private static Point GetDefaultPortalTile()
+        {
+            // Anchor near spawn without mutating tiles; future portal tile can bind to this position.
+            var x = Main.spawnTileX;
+            var y = Main.spawnTileY - 1;
+            return new Point(x, y);
+        }
+
+        private static void InitializePortalFromTag(TagCompound tag)
+        {
+            if (tag.ContainsKey(PortalKey))
+            {
+                var portalTag = tag.Get<TagCompound>(PortalKey);
+                var x = portalTag.GetInt(PortalXKey);
+                var y = portalTag.GetInt(PortalYKey);
+                PortalTile = new Point(x, y);
+                HasPortal = true;
+                return;
+            }
+
+            EnsurePortalInitialized();
         }
     }
 }

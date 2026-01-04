@@ -64,11 +64,12 @@
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L96), [spec US1](specs/001-arc-raid-prototype/spec.md#L15-L36), [spec FR-001..FR-005](specs/001-arc-raid-prototype/spec.md#L45-L65)
   - Notes: Added ModPlayer with session lifecycle (enter, scrap award, extract, death fail) delegating to services and shared stash registry; resets on world enter.
 
-- [ ] T008 [US1] Implement entry portal/structure placement near spawn and interaction to enter raid
+- [X] T008 [US1] Implement entry portal/structure placement near spawn and interaction to enter raid
   - Acceptance: Single portal exists per world; interacting calls RaidPlayer entry; no duplication on reload.
   - Architecture: Minimal tile/object placement via ModSystem; uses guards to avoid world mutation issues.
   - Constraints: World safety; avoid irreversible changes; performance neutral.
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L94), [spec FR-001](specs/001-arc-raid-prototype/spec.md#L45-L48)
+  - Notes: Added portal state in RaidSystem with persisted spawn-near location, idempotent init, and TryInteractPortal delegating to RaidPlayer entry without world edits.
 
 - [ ] T009 [US1] Implement extraction exit inside raid zone that triggers extract flow
   - Acceptance: Works only when session active; returns player to hub; stash gains raid scrap; raid inventory clears.
