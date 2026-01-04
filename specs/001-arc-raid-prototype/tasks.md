@@ -71,11 +71,12 @@
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L94), [spec FR-001](specs/001-arc-raid-prototype/spec.md#L45-L48)
   - Notes: Added portal state in RaidSystem with persisted spawn-near location, idempotent init, and TryInteractPortal delegating to RaidPlayer entry without world edits.
 
-- [ ] T009 [US1] Implement extraction exit inside raid zone that triggers extract flow
+- [X] T009 [US1] Implement extraction exit inside raid zone that triggers extract flow
   - Acceptance: Works only when session active; returns player to hub; stash gains raid scrap; raid inventory clears.
   - Architecture: Thin adapter calling services; positioning logic minimal.
   - Constraints: Loop integrity; world safety; perf light.
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L96), [spec US1 acceptance 2](specs/001-arc-raid-prototype/spec.md#L23-L36)
+  - Notes: Added exit interaction helper in RaidSystem that gates on active session, delegates extraction to RaidPlayer, and teleports player to spawn hub; no world edits.
 
 - [ ] T010 [US1] Add integration smoke test or adapter shim for entry -> loot -> extract flow
   - Acceptance: Simulated flow shows stash increases; raid inventory clears; no duplication.

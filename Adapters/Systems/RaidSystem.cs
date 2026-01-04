@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.Players;
@@ -116,6 +117,29 @@ namespace TerrariaArcRaiders.Adapters.Systems
             return raidPlayer.TryEnterRaid();
         }
 
+        internal static bool TryInteractExit(Player player)
+        {
+            if (player == null)
+            {
+                return false;
+            }
+
+            var raidPlayer = player.GetModPlayer<RaidPlayer>();
+            if (!raidPlayer.IsInRaid)
+            {
+                return false;
+            }
+
+            var extracted = raidPlayer.TryExtract();
+            if (!extracted)
+            {
+                return false;
+            }
+
+            SendPlayerToHub(player);
+            return true;
+        }
+
         private static void EnsurePortalInitialized()
         {
             if (HasPortal)
@@ -134,6 +158,13 @@ namespace TerrariaArcRaiders.Adapters.Systems
             var x = Main.spawnTileX;
             var y = Main.spawnTileY - 1;
             return new Point(x, y);
+        }
+
+        private static void SendPlayerToHub(Player player)
+        {
+            // Teleport to spawn as a hub stand-in without modifying world tiles.
+            var spawnPosition = new Vector2(Main.spawnTileX * 16, Main.spawnTileY * 16);
+            player.Teleport(spawnPosition, TeleportationStyleID.RodOfDiscord);
         }
 
         private static void InitializePortalFromTag(TagCompound tag)
