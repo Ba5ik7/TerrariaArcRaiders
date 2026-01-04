@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +10,10 @@ namespace TerrariaArcRaiders.Adapters.NPCs
     // Minimal hub console NPC skeleton; interaction and spawn logic are added in later tasks.
     public class RaidHubConsoleNPC : ModNPC
     {
+        private const int MessageCooldownTicks = 60; // ~1 second at 60fps
+
+        private static readonly Dictionary<int, LastMessage> LastMessageByPlayer = new();
+
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 1;
@@ -56,7 +61,7 @@ namespace TerrariaArcRaiders.Adapters.NPCs
                 var entered = RaidSystem.TryInteractPortal(player);
                 if (!entered)
                 {
-                    RaidUiNotifications.Send(player, RaidUiNotifications.AlreadyInRaid);
+                    TrySendRefusal(player, RaidUiNotifications.AlreadyInRaid);
                 }
                 return;
             }
@@ -64,8 +69,37 @@ namespace TerrariaArcRaiders.Adapters.NPCs
             var exited = RaidSystem.TryInteractExit(player);
             if (!exited)
             {
-                RaidUiNotifications.Send(player, RaidUiNotifications.NotInRaid);
+                TrySendRefusal(player, RaidUiNotifications.NotInRaid);
             }
+        }
+
+        private static bool TrySendRefusal(Player player, string message)
+        {
+            var now = Main.GameUpdateCount;
+            var playerId = player.whoAmI;
+
+            if (LastMessageByPlayer.TryGetValue(playerId, out var last)
+                && last.Message == message
+                && now - last.Tick < MessageCooldownTicks)
+            {
+                return false;
+            }
+
+            LastMessageByPlayer[playerId] = new LastMessage
+            {
+                Message = message,
+                Tick = now
+            };
+
+            RaidUiNotifications.Send(player, message);
+            return true;
+        }
+
+        private struct LastMessage
+        {
+            public string Message { get; init; }
+
+            public ulong Tick { get; init; }
         }
     }
 }
