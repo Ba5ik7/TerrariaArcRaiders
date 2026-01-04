@@ -129,7 +129,7 @@ description: "Task list for Raid Entry & Debug Controls"
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Audit and minimize world data writes for this feature in Adapters/Systems/RaidSystem.cs
+- [x] T014 [US3] Audit and minimize world data writes for this feature in Adapters/Systems/RaidSystem.cs
 - [ ] T015 [US3] Ensure safe load behavior when portal metadata is missing/corrupt (no exceptions) in Adapters/Systems/RaidSystem.cs
 - [ ] T016 [US3] Manual verification pass: complete “World safety” section in specs/002-raid-entry-and-debug/quickstart.md
 

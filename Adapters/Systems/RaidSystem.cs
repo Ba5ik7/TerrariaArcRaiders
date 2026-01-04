@@ -66,16 +66,8 @@ namespace TerrariaArcRaiders.Adapters.Systems
 
             tag[StashKey] = stashRoot;
 
-            if (HasPortal)
-            {
-                var portalTag = new TagCompound
-                {
-                    [PortalXKey] = PortalTile.X,
-                    [PortalYKey] = PortalTile.Y
-                };
-
-                tag[PortalKey] = portalTag;
-            }
+            // Do not persist portal metadata: the hub console and portal anchor are derived from spawn each load.
+            // This keeps worlds robust if the feature is removed and avoids unnecessary world data writes.
         }
 
         public override void LoadWorldData(TagCompound tag)
