@@ -162,11 +162,12 @@
 
 ## Phase 8: Test & QA Pass
 
-- [ ] T020 Run unit test suite and document results in specs/001-arc-raid-prototype/quickstart.md (or note pending creation)
+- [X] T020 Run unit test suite and document results in specs/001-arc-raid-prototype/quickstart.md (or note pending creation)
   - Acceptance: Tests pass; failures documented with follow-ups.
   - Architecture: N/A.
   - Constraints: Testability.
   - Links: [plan tests](specs/001-arc-raid-prototype/plan.md#L125-L129)
+  - Notes: Ran `dotnet test TerrariaArcRaiders.csproj -v minimal` (15 passed, 0 failed); documented results in quickstart.md and noted tModLoader discovery warning.
 
 - [ ] T021 Manual validation checklist (enter/loot/extract, death loss, stash survives reload/disable, fps sanity) recorded in quickstart.md
   - Acceptance: Steps executed and noted; issues captured.
