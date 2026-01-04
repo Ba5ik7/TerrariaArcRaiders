@@ -123,11 +123,12 @@
 
 ## Phase 6: ARC Scrap Item & ARC Drone NPC (Enablers for US1 loot loop)
 
-- [ ] T015 Implement ArcScrap ModItem adapter in TerrariaArcRaiders/Adapters/Items/
+- [X] T015 Implement ArcScrap ModItem adapter in TerrariaArcRaiders/Adapters/Items/
   - Acceptance: Item exists, stacks per descriptor, uses core data; no game rules inside adapter.
   - Architecture: Thin wrapper delegating to descriptor; created via drop rules only.
   - Constraints: Decoupled; performance neutral.
   - Links: [plan NPC/item](specs/001-arc-raid-prototype/plan.md#L98-L109), [spec FR-006](specs/001-arc-raid-prototype/spec.md#L63-L65)
+  - Notes: Added ModItem using ArcScrap descriptor for stack/value; no gameplay rules embedded.
 
 - [ ] T016 Implement ArcDrone ModNPC adapter with lightweight AI and drop delegation
   - Acceptance: Spawns only in raid zone; AI avoids per-tick allocations; OnKill awards ARC Scrap via DropRules into active raid session.
