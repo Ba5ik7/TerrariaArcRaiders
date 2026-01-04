@@ -82,13 +82,13 @@ Every task MUST follow this checklist format:
   - Exposes `IsArcWorld` + anchors for other systems.
 - Keep core selection + data types in `Core/WorldGen/`.
 
-- [ ] T010 [US1] Implement Arc world flag + reset defaults in `Adapters/Systems/ArcWorldSystem.cs`
-- [ ] T011 [US1] Persist `IsArcWorld` + `DataVersion` in `Adapters/Systems/ArcWorldSystem.SaveWorldHeader()`
-- [ ] T012 [US1] Persist full Arc metadata in `Adapters/Systems/ArcWorldSystem.SaveWorldData()`
-- [ ] T013 [US1] Load Arc metadata with safe-fail behavior in `Adapters/Systems/ArcWorldSystem.LoadWorldData()`
-- [ ] T014 [US1] Detect Arc preset selection in `Adapters/Systems/ArcWorldSystem.PreWorldGen()` using `Core/WorldGen/ArcWorldSelection.cs`
-- [ ] T015 [US1] Ensure non-Arc worlds keep vanilla behavior by gating on `ArcWorldSystem.IsArcWorld` in `Adapters/Systems/ArcWorldSystem.cs`
-- [ ] T016 [P] [US1] Add a minimal “Arc world detected” debug log line on load in `Adapters/Systems/ArcWorldSystem.cs`
+- [X] T010 [US1] Implement Arc world flag + reset defaults in `Adapters/Systems/ArcWorldSystem.cs` (state + reset added)
+- [X] T011 [US1] Persist `IsArcWorld` + `DataVersion` in `Adapters/Systems/ArcWorldSystem.SaveWorldHeader()` (header persistence added)
+- [X] T012 [US1] Persist full Arc metadata in `Adapters/Systems/ArcWorldSystem.SaveWorldData()` (world data persistence added)
+- [X] T013 [US1] Load Arc metadata with safe-fail behavior in `Adapters/Systems/ArcWorldSystem.LoadWorldData()` (safe-fail load added)
+- [X] T014 [US1] Detect Arc preset selection in `Adapters/Systems/ArcWorldSystem.PreWorldGen()` using `Core/WorldGen/ArcWorldSelection.cs` (seed prefix detection added)
+- [X] T015 [US1] Ensure non-Arc worlds keep vanilla behavior by gating on `ArcWorldSystem.IsArcWorld` in `Adapters/Systems/ArcWorldSystem.cs` (all hooks gated)
+- [X] T016 [P] [US1] Add a minimal “Arc world detected” debug log line on load in `Adapters/Systems/ArcWorldSystem.cs` (debug log added)
 
 **Checkpoint**: Player can create Arc vs non-Arc worlds; Arc tag persists; safe default is non-Arc.
 
