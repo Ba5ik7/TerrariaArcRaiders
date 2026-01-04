@@ -23,12 +23,13 @@
   - Links: [plan foundations](specs/001-arc-raid-prototype/plan.md#L59-L70), [spec entities](specs/001-arc-raid-prototype/spec.md#L83-L113)
   - Notes: Added ArcScrap descriptor, inventory/stash helpers, session status/timestamps; all pure C#; build passes.
 
-- [ ] T003 Implement core services `RaidSessionService`, `StashService`, `DropRules` in TerrariaArcRaiders/Core/Services/
+- [X] T003 Implement core services `RaidSessionService`, `StashService`, `DropRules` in TerrariaArcRaiders/Core/Services/
   - Goal/Scope: State transitions (start, loot, extract, fail/death), stash deposit, drop-to-raid rules.
   - Acceptance: Unit-callable methods enforcing extract clears raid inventory, death clears without stash; handles zero/duplicate sessions gracefully.
   - Architecture: Pure C#; deterministic; no hooks; inject persistence later.
   - Constraints: Loop integrity, decoupled, no allocations per tick.
   - Links: [plan foundations](specs/001-arc-raid-prototype/plan.md#L59-L74), [spec FR-002..FR-004](specs/001-arc-raid-prototype/spec.md#L53-L76)
+  - Notes: Added services with safe guards for inactive sessions, death clears stash untouched, extract deposits all scrap then clears; simple drop rule awards 1 scrap; build passes.
 
 - [ ] T004 Add unit tests for services/models in TerrariaArcRaiders/Tests/Unit/
   - Goal/Scope: Cover enter->loot->extract path, death loss path, stash transfer bounds, drop helper mapping.
