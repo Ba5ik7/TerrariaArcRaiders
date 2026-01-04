@@ -31,12 +31,13 @@
   - Links: [plan foundations](specs/001-arc-raid-prototype/plan.md#L59-L74), [spec FR-002..FR-004](specs/001-arc-raid-prototype/spec.md#L53-L76)
   - Notes: Added services with safe guards for inactive sessions, death clears stash untouched, extract deposits all scrap then clears; simple drop rule awards 1 scrap; build passes.
 
-- [ ] T004 Add unit tests for services/models in TerrariaArcRaiders/Tests/Unit/
+- [X] T004 Add unit tests for services/models in TerrariaArcRaiders/Tests/Unit/
   - Goal/Scope: Cover enter->loot->extract path, death loss path, stash transfer bounds, drop helper mapping.
   - Acceptance: Tests fail if rules regress; verify 100% transfer on extract, 0% on death; no duplication.
   - Architecture: Headless; pure C#; no tML.
   - Constraints: Spec-driven testability; perf not critical in tests.
   - Links: [plan foundations tests](specs/001-arc-raid-prototype/plan.md#L72-L74), [spec FR-010](specs/001-arc-raid-prototype/spec.md#L73-L76)
+  - Notes: Added MSTest-based unit tests for extract->stash, death loss, inventory reset, and drop rules; build passes.
 
 ## Phase 3: User Story 1 - Enter, Raid, Extract With Scrap (Priority: P1) 🎯 MVP
 
