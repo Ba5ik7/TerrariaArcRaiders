@@ -21,6 +21,18 @@ namespace TerrariaArcRaiders.Adapters.WorldGen
             logger.Debug($"{Prefix} {stageName}{suffix}");
         }
 
+        internal static void StageOrder(string stageCode, string description)
+        {
+            if (!Enabled)
+            {
+                return;
+            }
+
+            var name = string.IsNullOrWhiteSpace(stageCode) ? "Unknown" : stageCode;
+            var detail = string.IsNullOrWhiteSpace(description) ? string.Empty : $" - {description}";
+            Stage(name, detail);
+        }
+
         internal static void Info(string message)
         {
             if (!Enabled || string.IsNullOrWhiteSpace(message))
