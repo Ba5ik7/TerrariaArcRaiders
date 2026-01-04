@@ -26,20 +26,20 @@ namespace TerrariaArcRaiders.Adapters.Commands
             if (!devToolsEnabled)
             {
                 caller.Reply(RaidUiNotifications.DevToolsDisabled);
-                caller.Reply($"Usage: {UsageText}");
+                caller.Reply(GetUsageLine());
                 return;
             }
 
             if (args.Length == 0)
             {
-                caller.Reply($"Usage: {UsageText}");
+                caller.Reply(GetUsageLine());
                 return;
             }
 
             var player = caller.Player;
             if (player is null)
             {
-                caller.Reply("Player-only command.");
+                caller.Reply("ARC Raid: player-only command.");
                 return;
             }
 
@@ -65,7 +65,7 @@ namespace TerrariaArcRaiders.Adapters.Commands
                     }
                     break;
                 default:
-                    caller.Reply($"Usage: {UsageText}");
+                    caller.Reply(GetUsageLine());
                     break;
             }
         }
@@ -93,5 +93,7 @@ namespace TerrariaArcRaiders.Adapters.Commands
 
             RaidUiNotifications.Send(player, RaidUiNotifications.DevExit);
         }
+
+        private static string GetUsageLine() => $"Usage: {UsageText}";
     }
 }

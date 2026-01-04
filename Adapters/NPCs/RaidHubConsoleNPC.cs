@@ -37,7 +37,7 @@ namespace TerrariaArcRaiders.Adapters.NPCs
         public override void SetChatButtons(ref string button, ref string button2)
         {
             var raidPlayer = Main.LocalPlayer.GetModPlayer<RaidPlayer>();
-            button = raidPlayer.IsInRaid ? "Extract / Exit" : "Enter Raid";
+            button = raidPlayer.IsInRaid ? "Extract / Exit" : "Enter Raid"; // Text kept concise; messages unified elsewhere.
             button2 = Language.GetTextValue("LegacyInterface.52"); // Close
         }
 
