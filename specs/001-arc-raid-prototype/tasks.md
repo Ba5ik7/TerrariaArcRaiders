@@ -15,12 +15,13 @@
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-- [ ] T002 Define core models `RaidSessionStatus`, `RaidSession`, `RaidInventory`, `Stash`, `ArcScrap` in TerrariaArcRaiders/Core/Models/
+- [X] T002 Define core models `RaidSessionStatus`, `RaidSession`, `RaidInventory`, `Stash`, `ArcScrap` in TerrariaArcRaiders/Core/Models/
   - Goal/Scope: Data shapes for raid loop; no logic beyond basic helpers.
   - Acceptance: Types compile; covers fields noted in plan; helpers reset/clear safely.
   - Architecture: Pure C#; no tML types; serializable-friendly.
   - Constraints: Decoupled logic; world-safety ready; perf O(1) ops.
   - Links: [plan foundations](specs/001-arc-raid-prototype/plan.md#L59-L70), [spec entities](specs/001-arc-raid-prototype/spec.md#L83-L113)
+  - Notes: Added ArcScrap descriptor, inventory/stash helpers, session status/timestamps; all pure C#; build passes.
 
 - [ ] T003 Implement core services `RaidSessionService`, `StashService`, `DropRules` in TerrariaArcRaiders/Core/Services/
   - Goal/Scope: State transitions (start, loot, extract, fail/death), stash deposit, drop-to-raid rules.
