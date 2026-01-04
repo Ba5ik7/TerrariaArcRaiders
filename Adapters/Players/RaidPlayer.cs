@@ -1,4 +1,7 @@
 using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Core.Models;
@@ -13,6 +16,8 @@ namespace TerrariaArcRaiders.Adapters.Players
         private readonly RaidSessionService _sessionService = new();
 
         private RaidSession? _session;
+
+        private bool _respawnToHub;
 
         public RaidSession? CurrentSession => _session;
 
@@ -64,12 +69,14 @@ namespace TerrariaArcRaiders.Adapters.Players
 
             _sessionService.Fail(_session);
             _session = null;
+            _respawnToHub = true;
         }
 
         public override void OnEnterWorld()
         {
             _session = null;
             _ = RaidSystem.GetOrCreateStash(PlayerId);
+            _respawnToHub = false;
         }
 
         public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
@@ -80,6 +87,23 @@ namespace TerrariaArcRaiders.Adapters.Players
             }
 
             base.Kill(damage, hitDirection, pvp, damageSource);
+        }
+
+        public override void OnRespawn()
+        {
+            base.OnRespawn();
+
+            if (_respawnToHub)
+            {
+                TeleportToSpawn();
+                _respawnToHub = false;
+            }
+        }
+
+        private void TeleportToSpawn()
+        {
+            var spawnPosition = new Vector2(Main.spawnTileX * 16, Main.spawnTileY * 16);
+            Player.Teleport(spawnPosition, TeleportationStyleID.RodOfDiscord);
         }
     }
 }

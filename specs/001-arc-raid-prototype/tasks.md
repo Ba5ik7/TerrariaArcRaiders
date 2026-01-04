@@ -89,11 +89,12 @@
 
 **Goal**: Enforce loss of raid inventory on death inside raid, preserving risk without harming world.
 
-- [ ] T011 [US2] Wire death handling in RaidPlayer to call fail path and clear raid inventory
+- [X] T011 [US2] Wire death handling in RaidPlayer to call fail path and clear raid inventory
   - Acceptance: Death in raid zeros raid inventory; stash unchanged; respawn in hub.
   - Architecture: Thin adapter call; no logic inside hook.
   - Constraints: Loop integrity; world safety; decoupled logic.
   - Links: [plan entry/exit death](specs/001-arc-raid-prototype/plan.md#L86-L96), [spec US2](specs/001-arc-raid-prototype/spec.md#L38-L58), [spec FR-004](specs/001-arc-raid-prototype/spec.md#L60-L62)
+  - Notes: RaidPlayer Kill now calls FailRun to clear raid inventory and leaves stash untouched; respawn teleports to spawn hub when a raid death occurred.
 
 - [ ] T012 [P] [US2] Extend unit tests for death loss scenarios and no-loot death
   - Acceptance: Tests fail if scrap not cleared on death or stash mutates incorrectly.
