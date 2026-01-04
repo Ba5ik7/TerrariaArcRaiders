@@ -52,3 +52,20 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# IDE/workspace
+.vs/
+.vscode/
+.idea/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Temp/editor
+*.swp
+*.tmp
+
+# Environment secrets/config
+.env
+.env.*

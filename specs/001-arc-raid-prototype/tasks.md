@@ -50,17 +50,19 @@
   - Links: [plan persistence](specs/001-arc-raid-prototype/plan.md#L76-L84), [spec FR-007](specs/001-arc-raid-prototype/spec.md#L68-L70)
   - Notes: Added IRaidPersistence, TagCompoundDto, and RaidPersistence with stash/session snapshot save/load, safe defaults on missing/corrupt data; included unit tests; build clean.
 
-- [ ] T006 [US1] Add `Adapters/Systems/RaidSystem` for load/save wiring using `IRaidPersistence`
+- [X] T006 [US1] Add `Adapters/Systems/RaidSystem` for load/save wiring using `IRaidPersistence`
   - Acceptance: On world load/save, stash persists per player without corrupting vanilla; ignores missing data.
   - Architecture: Thin ModSystem delegating to persistence; no game rules.
   - Constraints: Decoupled hooks; world safety; performance (no heavy alloc on save/load).
   - Links: [plan persistence](specs/001-arc-raid-prototype/plan.md#L76-L84), [spec FR-009](specs/001-arc-raid-prototype/spec.md#L71-L73)
+  - Notes: Added RaidSystem with per-player stash registry and TagCompound bridge; delegates to IRaidPersistence; safe on missing/corrupt data; build clean.
 
-- [ ] T007 [US1] Create `Adapters/Players/RaidPlayer` handling entry, extract, death delegation
+- [X] T007 [US1] Create `Adapters/Players/RaidPlayer` handling entry, extract, death delegation
   - Acceptance: Entry starts session; extract triggers service extract + stash deposit; death triggers fail; raid inventory cleared accordingly.
   - Architecture: ModPlayer thin wrapper calling services; stores transient raid inventory state; no rules inline.
   - Constraints: Loop integrity; decoupled; world safety; perf light.
   - Links: [plan entry/exit](specs/001-arc-raid-prototype/plan.md#L86-L96), [spec US1](specs/001-arc-raid-prototype/spec.md#L15-L36), [spec FR-001..FR-005](specs/001-arc-raid-prototype/spec.md#L45-L65)
+  - Notes: Added ModPlayer with session lifecycle (enter, scrap award, extract, death fail) delegating to services and shared stash registry; resets on world enter.
 
 - [ ] T008 [US1] Implement entry portal/structure placement near spawn and interaction to enter raid
   - Acceptance: Single portal exists per world; interacting calls RaidPlayer entry; no duplication on reload.

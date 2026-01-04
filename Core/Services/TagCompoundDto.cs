@@ -11,6 +11,10 @@ namespace TerrariaArcRaiders.Core.Services
         private readonly Dictionary<string, string> _strings = new();
         private readonly Dictionary<string, TagCompoundDto> _compounds = new();
 
+        public IReadOnlyDictionary<string, int> Ints => _ints;
+        public IReadOnlyDictionary<string, string> Strings => _strings;
+        public IReadOnlyDictionary<string, TagCompoundDto> Compounds => _compounds;
+
         public void SetInt(string key, int value) => _ints[key] = value;
         public int GetInt(string key, int defaultValue = 0) => _ints.TryGetValue(key, out var value) ? value : defaultValue;
 
