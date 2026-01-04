@@ -36,7 +36,7 @@ description: "Task list for Raid Entry & Debug Controls"
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 - [x] T003 Create dev-tools config flag in TerrariaArcRaiders.cs or a new config file at Adapters/Systems/ArcRaidersConfig.cs
-- [ ] T004 [P] Define shared user feedback helper for raid entry/exit messages in Adapters/Systems/RaidUiNotifications.cs
+- [x] T004 [P] Define shared user feedback helper for raid entry/exit messages in Adapters/Systems/RaidUiNotifications.cs
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
