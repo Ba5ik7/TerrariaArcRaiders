@@ -171,14 +171,24 @@ namespace TerrariaArcRaiders.Adapters.Systems
 
         private static void InitializePortalFromTag(TagCompound tag)
         {
-            if (tag.ContainsKey(PortalKey))
+            try
             {
-                var portalTag = tag.Get<TagCompound>(PortalKey);
-                var x = portalTag.GetInt(PortalXKey);
-                var y = portalTag.GetInt(PortalYKey);
-                PortalTile = new Point(x, y);
-                HasPortal = true;
-                return;
+                if (tag.ContainsKey(PortalKey))
+                {
+                    var portalTag = tag.Get<TagCompound>(PortalKey);
+                    if (portalTag != null && portalTag.ContainsKey(PortalXKey) && portalTag.ContainsKey(PortalYKey))
+                    {
+                        var x = portalTag.GetInt(PortalXKey);
+                        var y = portalTag.GetInt(PortalYKey);
+                        PortalTile = new Point(x, y);
+                        HasPortal = true;
+                        return;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore corrupt portal metadata to preserve world load safety.
             }
 
             EnsurePortalInitialized();
