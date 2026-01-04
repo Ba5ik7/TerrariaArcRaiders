@@ -1,3 +1,6 @@
 displayName = Terraria ARC Raiders
 author = ba5ik7
 version = 0.1
+side = Both
+
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, Tests\*, Tests\Unit\*

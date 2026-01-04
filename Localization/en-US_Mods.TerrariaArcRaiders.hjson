@@ -1,2 +1,8 @@
-# This file will automatically update with entries for new content after a build and reload.
+Items: {
+	ArcScrapItem: {
+		DisplayName: Arc Scrap Item
+		Tooltip: ""
+	}
+}
 
+NPCs.ArcDroneNPC.DisplayName: Arc Drone N P C
