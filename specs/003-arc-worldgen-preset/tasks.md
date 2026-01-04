@@ -110,9 +110,9 @@ Every task MUST follow this checklist format:
 - Performance: avoid repeated full-world scans; prefer bounded region rectangles.
 - World safety: do not mutate non-Arc worlds; Arc generation must complete even if optional slots are stubbed.
 
-- [ ] T017 [US2] Define `ArcWorldPlan` (regions + reserved sites) in `Core/WorldGen/ArcWorldPlan.cs`
-- [ ] T018 [US2] Implement deterministic plan builder `ArcWorldPlanService` in `Core/WorldGen/ArcWorldPlanService.cs`
-- [ ] T019 [P] [US2] Add determinism unit tests for plan builder in `Tests/Unit/ArcWorldPlanServiceTests.cs`
+- [X] T017 [US2] Define `ArcWorldPlan` (regions + reserved sites) in `Core/WorldGen/ArcWorldPlan.cs` (plan DTO added)
+- [X] T018 [US2] Implement deterministic plan builder `ArcWorldPlanService` in `Core/WorldGen/ArcWorldPlanService.cs` (seeded planner added)
+- [X] T019 [P] [US2] Add determinism unit tests for plan builder in `Tests/Unit/ArcWorldPlanServiceTests.cs` (tests added)
 - [ ] T020 [US2] Add worldgen task wiring in `Adapters/Systems/ArcWorldGenSystem.cs` (new `ModSystem`)
 - [ ] T021 [US2] Implement Stage A “World Tagging & Setup” pass in `Adapters/WorldGen/Passes/ArcStageA_Setup.cs`
 - [ ] T022 [US2] Implement Stage B “Base Terrain Layout” placeholder pass in `Adapters/WorldGen/Passes/ArcStageB_BaseTerrain.cs`
