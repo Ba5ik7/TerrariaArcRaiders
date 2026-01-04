@@ -23,8 +23,8 @@ namespace TerrariaArcRaiders.Adapters.NPCs
 
         public override void SetDefaults()
         {
-            NPC.width = 18;
-            NPC.height = 40;
+            NPC.width = 64;
+            NPC.height = 64;
             NPC.friendly = true;
             NPC.damage = 0;
             NPC.defense = 9999;
