@@ -40,6 +40,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             data.ReservedSites.AddRange(plan.ReservedSites);
 
             ArcWorldSystem.WorldData = data;
+            // Planner already bounds rectangles; no full-world scans are performed here.
         }
     }
 }

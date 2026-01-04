@@ -54,3 +54,4 @@ Expected:
 ## Manual Verification Log (2026-01-04)
 
 - Not run in this environment (headless editor). Requires an interactive tModLoader session.
+- Safety note: Disabling/removing the mod leaves Arc worlds loadable; Arc metadata is treated as non-Arc on load if missing/corrupt. Non-Arc worlds are untouched.

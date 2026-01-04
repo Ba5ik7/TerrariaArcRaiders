@@ -19,7 +19,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
         {
             progress.Message = "Arc biome painting";
             ArcWorldGenLog.StageOrder("Stage D", "Biome Painting (placeholder)");
-            // No-op placeholder; future passes will operate within planned rectangles to avoid full-world scans.
+            // No-op placeholder; future passes must operate within planned rectangles to avoid full-world scans.
         }
     }
 }

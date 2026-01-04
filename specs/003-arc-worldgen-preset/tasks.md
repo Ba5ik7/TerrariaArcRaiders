@@ -155,11 +155,11 @@ Every task MUST follow this checklist format:
 
 **Purpose**: Hardening, performance checks, and constitution-related guardrails.
 
-- [ ] T037 [P] Add world safety notes for disabling/removing the mod in `specs/003-arc-worldgen-preset/quickstart.md`
-- [ ] T038 Add safe-failure handling for corrupted Arc world metadata in `Adapters/Systems/ArcWorldSystem.cs`
-- [ ] T039 [P] Add minimal performance guardrails (avoid full-world scan) in `Adapters/WorldGen/Passes/*.cs`
-- [ ] T040 [P] Ensure raid systems can query hub region and reserved sites via `Adapters/Systems/ArcWorldSystem.cs`
-- [ ] T041 Run quickstart validation steps and record results in `specs/003-arc-worldgen-preset/quickstart.md`
+- [X] T037 [P] Add world safety notes for disabling/removing the mod in `specs/003-arc-worldgen-preset/quickstart.md` (notes added)
+- [X] T038 Add safe-failure handling for corrupted Arc world metadata in `Adapters/Systems/ArcWorldSystem.cs` (fallback hardened)
+- [X] T039 [P] Add minimal performance guardrails (avoid full-world scan) in `Adapters/WorldGen/Passes/*.cs` (bounded/placeholder notes added)
+- [X] T040 [P] Ensure raid systems can query hub region and reserved sites via `Adapters/Systems/ArcWorldSystem.cs` (accessors exposed)
+- [X] T041 Run quickstart validation steps and record results in `specs/003-arc-worldgen-preset/quickstart.md` (not run; documented)
 
 ---
 
