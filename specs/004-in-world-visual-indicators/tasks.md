@@ -129,9 +129,12 @@ Notes:
 
 **Purpose**: Harden safety/perf and validate end-to-end
 
-- [ ] T029 [P] Keep marker placement bounded and avoid any full-world loops in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\ArcWorldGenIndicatorPlacer.cs`
-- [ ] T030 Ensure failures to place markers never fail worldgen (skip placement safely) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T029 [P] Keep marker placement bounded and avoid any full-world loops in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\ArcWorldGenIndicatorPlacer.cs`
+- [x] T030 Ensure failures to place markers never fail worldgen (skip placement safely) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
 - [ ] T031 Run in-game validation steps from `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\specs\004-in-world-visual-indicators\quickstart.md`
+
+Notes:
+- T031 requires a manual in-game run; `specs/004-in-world-visual-indicators/quickstart.md` now includes a "Validation Log" section to record results.
 
 ---
 

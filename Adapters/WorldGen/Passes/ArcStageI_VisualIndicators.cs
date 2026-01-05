@@ -59,9 +59,10 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
                 TryPlaceReservedSiteMarker(data, hub);
             }
-            catch
+            catch (Exception ex)
             {
                 // Fail-safe: visual indicators must never block worldgen.
+                ArcWorldGenLog.Info($"Visual indicators skipped due to error: {ex.GetType().Name}");
             }
         }
 
@@ -82,6 +83,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             // We only place a small, vanilla-safe marker (a gold brick + torch) and never clear tiles.
             var searchRadius = Math.Max(2, Math.Min(10, site.Radius + 2));
 
+            // Bounded: at most (2R+1)^2 iterations, with R <= 10.
             for (var dy = -searchRadius; dy <= searchRadius; dy++)
             {
                 for (var dx = -searchRadius; dx <= searchRadius; dx++)

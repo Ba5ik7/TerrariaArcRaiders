@@ -18,9 +18,14 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
             }
 
             var succeededAny = false;
-            foreach (var placement in placements)
+            // Safety/perf: bound the amount of work even if a caller passes an unexpectedly large list.
+            // Each placement has a constant-size footprint (2x2 base + torch + small framing area).
+            var maxPlacements = 64;
+            var placementCount = Math.Min(placements.Count, maxPlacements);
+
+            for (var i = 0; i < placementCount; i++)
             {
-                succeededAny |= TryPlaceStageMarker(hubRegion, placement);
+                succeededAny |= TryPlaceStageMarker(hubRegion, placements[i]);
             }
 
             return succeededAny;
@@ -70,6 +75,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
         private static bool TryPlaceSolid2x2(int x, int y, ushort tileType)
         {
             var anyPlaced = false;
+            // Bounded: always 4 tiles.
             for (var dx = 0; dx <= 1; dx++)
             {
                 for (var dy = 0; dy <= 1; dy++)
@@ -111,6 +117,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
         private static void FrameArea(int x, int y)
         {
+            // Bounded: constant framing area around the marker (4 cols x 5 rows).
             for (var dx = -1; dx <= 2; dx++)
             {
                 for (var dy = -2; dy <= 2; dy++)
