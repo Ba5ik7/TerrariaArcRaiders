@@ -96,9 +96,12 @@ Notes:
 
 **Independent Test**: Generate (1) Arc world with toggle off, (2) Arc world with toggle on, (3) non-Arc world; verify indicators appear only in case (2).
 
-- [ ] T023 [US2] Ensure the indicator pass hard-exits when toggle disabled in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
-- [ ] T024 [US2] Ensure the indicator pass hard-exits for non-Arc worlds (even if toggle enabled) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
-- [ ] T025 [US2] Update quickstart to include the toggle + expected behaviors in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\specs\004-in-world-visual-indicators\quickstart.md`
+- [x] T023 [US2] Ensure the indicator pass hard-exits when toggle disabled in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T024 [US2] Ensure the indicator pass hard-exits for non-Arc worlds (even if toggle enabled) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T025 [US2] Update quickstart to include the toggle + expected behaviors in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\specs\004-in-world-visual-indicators\quickstart.md`
+
+Notes:
+- `ArcStageI_VisualIndicators` hard-exits early for non-Arc worlds and when the config toggle is disabled.
 
 **Checkpoint**: Toggle semantics match FR-001/002/003 and SC-002.
 

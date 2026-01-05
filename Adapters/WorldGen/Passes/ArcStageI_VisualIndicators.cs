@@ -25,7 +25,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
                 return;
             }
 
-            if (!ArcRaidersConfig.Instance.WorldGenVisualIndicatorsEnabled)
+            var config = ArcRaidersConfig.Instance;
+            if (config == null || !config.WorldGenVisualIndicatorsEnabled)
             {
                 return;
             }
@@ -67,4 +68,3 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
         }
     }
 }
-
