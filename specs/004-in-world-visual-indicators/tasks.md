@@ -38,12 +38,16 @@ Notes:
 
 **Purpose**: Add the opt-in switch and core (headless) models/services used by all stories
 
-- [ ] T004 Add `WorldGenVisualIndicatorsEnabled` config toggle (default false) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcRaidersConfig.cs`
-- [ ] T005 Add stage completion run-state (resettable, no tModLoader types) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorRunState.cs`
-- [ ] T006 [P] Add stage legend metadata (stage -> label/name) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLegend.cs`
-- [ ] T007 [P] Add placement model (stage + tile coordinates + label) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorPlacement.cs`
-- [ ] T008 Implement deterministic layout service (hub rect + stage list -> placements) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLayoutService.cs`
-- [ ] T009 Document the indicator legend (human-readable mapping) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\specs\004-in-world-visual-indicators\contracts\indicator-legend.md`
+- [x] T004 Add `WorldGenVisualIndicatorsEnabled` config toggle (default false) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcRaidersConfig.cs`
+- [x] T005 Add stage completion run-state (resettable, no tModLoader types) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorRunState.cs`
+- [x] T006 [P] Add stage legend metadata (stage -> label/name) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLegend.cs`
+- [x] T007 [P] Add placement model (stage + tile coordinates + label) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorPlacement.cs`
+- [x] T008 Implement deterministic layout service (hub rect + stage list -> placements) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLayoutService.cs`
+- [x] T009 Document the indicator legend (human-readable mapping) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\specs\004-in-world-visual-indicators\contracts\indicator-legend.md`
+
+Notes:
+- Headless types live under `Core/WorldGen/Indicators/` and only depend on `Core/WorldGen/*` primitives (`IntRect`, `ArcWorldGenStage`).
+- Layout output is deterministic and bounded to `SafeHubRegion` (no world-size inputs required yet).
 
 **Checkpoint**: Config + headless indicator planning exists; Terraria placement can now be implemented.
 

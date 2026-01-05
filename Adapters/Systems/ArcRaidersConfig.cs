@@ -14,5 +14,9 @@ namespace TerrariaArcRaiders.Adapters.Systems
         [Label("Enable dev tools (raid entry/exit debug)")]
         [DefaultValue(false)]
         public bool DevToolsEnabled { get; set; } = false;
+
+        [Label("Enable Arc worldgen visual indicators (debug)")]
+        [DefaultValue(false)]
+        public bool WorldGenVisualIndicatorsEnabled { get; set; } = false;
     }
 }

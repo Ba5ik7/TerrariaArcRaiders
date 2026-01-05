@@ -19,3 +19,23 @@ Defines how a developer can interpret the in-world markers and map them back to 
 ## Acceptance Notes
 
 - A developer can identify the stage associated with each marker by using this legend alone.
+
+## Stage Legend (Current)
+
+This feature uses the following stage labels:
+
+| Stage | Label |
+|-------|-------|
+| A | Stage A: Setup |
+| B | Stage B: Base Terrain |
+| C | Stage C: Region Planning |
+| D | Stage D: Biome Painting |
+| E | Stage E: Structure Reservation |
+| F | Stage F: Structure Placement |
+| G | Stage G: Raid Anchors |
+| H | Stage H: Final Validation |
+
+## Placement Rule (Current)
+
+- Indicators are laid out as an ordered list (A → H) in a compact “board” placed within the planned hub region.
+- The exact in-world marker appearance is defined during the later tile/object placement implementation; it must remain unique per stage and readable without logs.
