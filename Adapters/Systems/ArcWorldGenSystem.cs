@@ -10,7 +10,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
     // Wires Arc worldgen stages into Terraria's worldgen pipeline for Arc worlds only.
     public class ArcWorldGenSystem : ModSystem
     {
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             if (!ArcWorldSystem.IsArcWorld)
             {

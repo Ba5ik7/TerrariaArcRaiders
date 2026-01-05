@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -13,9 +15,9 @@ namespace TerrariaArcRaiders.Adapters.Systems
         private const string HeaderIsArcKey = "arc:isArc";
         private const string HeaderVersionKey = "arc:dataVersion";
 
-        internal static bool IsArcWorld { get; private set; }
-        internal static ArcWorldData WorldData { get; private set; } = ArcWorldData.NonArc();
-        internal static ArcWorldSelection Selection { get; private set; } = ArcWorldSelection.FromSeedText(null);
+        internal static bool IsArcWorld { get; set; }
+        internal static ArcWorldData WorldData { get; set; } = ArcWorldData.NonArc();
+        internal static ArcWorldSelection Selection { get; set; } = ArcWorldSelection.FromSeedText(null);
 
         public static bool TryGetHubRegion(out IntRect hub)
         {
@@ -48,7 +50,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
         {
             ResetToNonArc();
 
-            var selection = ArcWorldSelection.FromSeedText(WorldGen.currentWorldSeed);
+            var selection = ArcWorldSelection.FromSeedText(Terraria.WorldGen.currentWorldSeed);
             Selection = selection;
             if (!selection.IsArcWorld)
             {
