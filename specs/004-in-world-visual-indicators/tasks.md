@@ -24,9 +24,13 @@ description: "Tasks for implementing In-World Visual Indicators"
 
 **Purpose**: Confirm baseline build + establish file locations for the feature
 
-- [ ] T001 Confirm baseline build succeeds (project: `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\TerrariaArcRaiders.csproj`)
-- [ ] T002 [P] Create feature folder for headless indicator logic in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\`
-- [ ] T003 [P] Create feature folder for Terraria placement glue in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\`
+- [x] T001 Confirm baseline build succeeds (project: `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\TerrariaArcRaiders.csproj`)
+- [x] T002 [P] Create feature folder for headless indicator logic in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\`
+- [x] T003 [P] Create feature folder for Terraria placement glue in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\`
+
+Notes:
+- Baseline build command: `dotnet build TerrariaArcRaiders.csproj`
+- Folders created: `Core/WorldGen/Indicators/`, `Adapters/WorldGen/Indicators/`
 
 ---
 
