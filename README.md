@@ -3,6 +3,11 @@ Terraria: Arc Raiders
 
 ## Feature Documentation
 
+- Prototype ARC Raid Zone (001)
+	- [Spec](specs/001-arc-raid-prototype/spec.md)
+	- [Plan](specs/001-arc-raid-prototype/plan.md)
+	- [Quickstart](specs/001-arc-raid-prototype/quickstart.md)
+
 - Raid Entry & Debug Controls (002)
 	- [Spec](specs/002-raid-entry-and-debug/spec.md)
 	- [Plan](specs/002-raid-entry-and-debug/plan.md)
