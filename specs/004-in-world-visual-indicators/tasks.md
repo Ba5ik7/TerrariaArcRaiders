@@ -61,10 +61,14 @@ Notes:
 
 ### Implementation (US1)
 
-- [ ] T010 [P] [US1] Add safe, bounded Terraria placer for a stage “board” (platform + sign/torch placement) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\ArcWorldGenIndicatorPlacer.cs`
-- [ ] T011 [US1] Add final worldgen pass to place indicators (runs after vanilla worldgen tasks) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
-- [ ] T012 [US1] Append the final indicator pass at the end of worldgen tasks (only when Arc + toggle enabled) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcWorldGenSystem.cs`
-- [ ] T013 [US1] Reset indicator run-state at start of worldgen (so repeated generations don’t leak state) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcWorldSystem.cs`
+- [x] T010 [P] [US1] Add safe, bounded Terraria placer for a stage "board" (platform + sign/torch placement) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Indicators\ArcWorldGenIndicatorPlacer.cs`
+- [x] T011 [US1] Add final worldgen pass to place indicators (runs after vanilla worldgen tasks) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T012 [US1] Append the final indicator pass at the end of worldgen tasks (only when Arc + toggle enabled) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcWorldGenSystem.cs`
+- [x] T013 [US1] Reset indicator run-state at start of worldgen (so repeated generations don't leak state) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\Systems\ArcWorldSystem.cs`
+
+Notes:
+- Indicator placement uses vanilla tiles only and is clamped to `SafeHubRegion` (no full-world scans).
+- `ArcStageI_VisualIndicators` falls back to placing markers for all stages until per-stage completion marking (T014–T022) is implemented.
 
 ### Stage completion recording (US1)
 

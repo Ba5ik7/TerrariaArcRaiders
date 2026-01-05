@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen;
+using TerrariaArcRaiders.Core.WorldGen.Indicators;
 
 namespace TerrariaArcRaiders.Adapters.Systems
 {
@@ -18,6 +19,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
         internal static bool IsArcWorld { get; set; }
         internal static ArcWorldData WorldData { get; set; } = ArcWorldData.NonArc();
         internal static ArcWorldSelection Selection { get; set; } = ArcWorldSelection.FromSeedText(null);
+        internal static ArcWorldGenIndicatorRunState WorldGenIndicatorRunState { get; } = new();
 
         public static bool TryGetHubRegion(out IntRect hub)
         {
@@ -156,6 +158,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
             IsArcWorld = false;
             WorldData = ArcWorldData.NonArc();
             Selection = ArcWorldSelection.FromSeedText(null);
+            WorldGenIndicatorRunState.Reset();
         }
     }
 }
