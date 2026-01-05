@@ -7,6 +7,12 @@ namespace TerrariaArcRaiders.Core.WorldGen.Indicators
     {
         public IReadOnlyList<ArcWorldGenIndicatorPlacement> BuildHubBoardPlacements(IntRect hubRegion, IReadOnlyList<ArcWorldGenStage> stages)
         {
+            // Backwards-compatible overload when world bounds are not available yet.
+            return BuildHubBoardPlacements(hubRegion, stages, worldWidth: 0, worldHeight: 0);
+        }
+
+        public IReadOnlyList<ArcWorldGenIndicatorPlacement> BuildHubBoardPlacements(IntRect hubRegion, IReadOnlyList<ArcWorldGenStage> stages, int worldWidth, int worldHeight)
+        {
             if (!hubRegion.IsValid || stages == null || stages.Count == 0)
             {
                 return Array.Empty<ArcWorldGenIndicatorPlacement>();
@@ -35,6 +41,17 @@ namespace TerrariaArcRaiders.Core.WorldGen.Indicators
                 // Clamp within hub bounds defensively.
                 tileX = Clamp(tileX, hubRegion.X, Math.Max(hubRegion.X, hubRegion.Right - 1));
                 tileY = Clamp(tileY, hubRegion.Y, Math.Max(hubRegion.Y, hubRegion.Bottom - 1));
+
+                // Optionally clamp to world bounds when provided.
+                if (worldWidth > 0)
+                {
+                    tileX = Clamp(tileX, 0, Math.Max(0, worldWidth - 1));
+                }
+
+                if (worldHeight > 0)
+                {
+                    tileY = Clamp(tileY, 0, Math.Max(0, worldHeight - 1));
+                }
 
                 placements.Add(new ArcWorldGenIndicatorPlacement(stage, tileX, tileY, ArcWorldGenIndicatorLegend.GetLabel(stage)));
             }

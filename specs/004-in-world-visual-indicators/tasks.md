@@ -113,9 +113,13 @@ Notes:
 
 **Independent Test**: Generate the same Arc seed multiple times; indicator “board” appears in consistent location relative to planned hub region; dev can find it quickly.
 
-- [ ] T026 [US3] Anchor layout coordinates to `ArcWorldData.SafeHubRegion` (clamped within world bounds) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLayoutService.cs`
-- [ ] T027 [US3] Use the planned hub placement from the layout service when placing the indicator board in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
-- [ ] T028 [US3] Place an additional marker at/near the planned reserved site (if present) to validate reserved-site planning in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T026 [US3] Anchor layout coordinates to `ArcWorldData.SafeHubRegion` (clamped within world bounds) in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Core\WorldGen\Indicators\ArcWorldGenIndicatorLayoutService.cs`
+- [x] T027 [US3] Use the planned hub placement from the layout service when placing the indicator board in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+- [x] T028 [US3] Place an additional marker at/near the planned reserved site (if present) to validate reserved-site planning in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageI_VisualIndicators.cs`
+
+Notes:
+- Layout now accepts optional world bounds (`Main.maxTilesX/maxTilesY` passed from the worldgen pass) and clamps outputs accordingly.
+- Reserved-site marker uses a bounded, deterministic local search and only places tiles into empty space (no clearing).
 
 **Checkpoint**: Placement is deterministic for seed+size and discoverable near planned regions (FR-006/007, SC-003).
 
