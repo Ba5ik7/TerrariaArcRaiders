@@ -14,6 +14,7 @@
 	<PropertyGroup Condition="'$(BuildTests)'=='true'">
 		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
+		<DefineConstants>$(DefineConstants);BUILD_TESTS</DefineConstants>
 	</PropertyGroup>
 
 	<!-- Compile items for normal mod build -->
@@ -26,6 +27,7 @@
 	<!-- Compile items for headless test build -->
 	<ItemGroup Condition="'$(BuildTests)'=='true'">
 		<Compile Include="Core\**\*.cs" />
+		<Compile Include="Adapters\Systems\ArcWorldDataBridge.cs" />
 		<Compile Include="Tests\Unit\**\*.cs" />
 	</ItemGroup>
 
