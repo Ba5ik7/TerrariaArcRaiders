@@ -29,6 +29,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
             ArcWorldSystem.WorldData.IsArcWorld = true;
             ArcWorldSystem.WorldData.DataVersion = ArcWorldData.CurrentDataVersion;
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

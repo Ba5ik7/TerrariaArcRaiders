@@ -1,5 +1,6 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
+using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Adapters.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen;
 
@@ -20,6 +21,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             progress.Message = "Arc base terrain";
             ArcWorldGenLog.StageOrder("Stage B", "Base Terrain Layout");
             // No-op placeholder to keep vanilla terrain until Arc terrain is defined; avoids full-world tile edits.
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

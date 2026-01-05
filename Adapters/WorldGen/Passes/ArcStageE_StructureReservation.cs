@@ -22,6 +22,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             ArcWorldGenLog.StageOrder("Stage E", "Structure Reservation");
             // No-op placeholder; reserved sites already provided by planner (bounded list, no scans).
             _ = ArcWorldSystem.WorldData?.ReservedSites;
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

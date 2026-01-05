@@ -41,6 +41,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
             ArcWorldSystem.WorldData = data;
             // Planner already bounds rectangles; no full-world scans are performed here.
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

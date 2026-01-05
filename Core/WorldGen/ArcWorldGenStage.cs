@@ -10,5 +10,8 @@ namespace TerrariaArcRaiders.Core.WorldGen
         StageF_StructurePlacement = 5,
         StageG_RaidAnchors = 6,
         StageH_FinalValidation = 7,
+
+        // Debug-only stage markers should use values outside the main pipeline range so they don't affect ordering.
+        StageZ_TestMarker = 100,
     }
 }

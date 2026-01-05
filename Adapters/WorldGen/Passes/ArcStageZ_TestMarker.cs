@@ -1,5 +1,6 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
+using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Adapters.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen;
 
@@ -21,6 +22,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
         {
             progress.Message = "Arc test marker";
             ArcWorldGenLog.StageOrder("Stage Z", "Debug test marker");
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(ArcWorldGenStage.StageZ_TestMarker);
         }
     }
 #endif

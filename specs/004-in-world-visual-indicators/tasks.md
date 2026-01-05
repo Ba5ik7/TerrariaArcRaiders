@@ -72,15 +72,19 @@ Notes:
 
 ### Stage completion recording (US1)
 
-- [ ] T014 [P] [US1] Mark Stage A completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageA_Setup.cs`
-- [ ] T015 [P] [US1] Mark Stage B completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageB_BaseTerrain.cs`
-- [ ] T016 [P] [US1] Mark Stage C completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageC_RegionPlanning.cs`
-- [ ] T017 [P] [US1] Mark Stage D completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageD_BiomePainting.cs`
-- [ ] T018 [P] [US1] Mark Stage E completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageE_StructureReservation.cs`
-- [ ] T019 [P] [US1] Mark Stage F completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageF_StructurePlacement.cs`
-- [ ] T020 [P] [US1] Mark Stage G completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageG_RaidAnchors.cs`
-- [ ] T021 [P] [US1] Mark Stage H completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageH_FinalValidation.cs`
-- [ ] T022 [P] [US1] If DEBUG marker stage is compiled, mark its completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageZ_TestMarker.cs`
+- [x] T014 [P] [US1] Mark Stage A completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageA_Setup.cs`
+- [x] T015 [P] [US1] Mark Stage B completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageB_BaseTerrain.cs`
+- [x] T016 [P] [US1] Mark Stage C completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageC_RegionPlanning.cs`
+- [x] T017 [P] [US1] Mark Stage D completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageD_BiomePainting.cs`
+- [x] T018 [P] [US1] Mark Stage E completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageE_StructureReservation.cs`
+- [x] T019 [P] [US1] Mark Stage F completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageF_StructurePlacement.cs`
+- [x] T020 [P] [US1] Mark Stage G completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageG_RaidAnchors.cs`
+- [x] T021 [P] [US1] Mark Stage H completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageH_FinalValidation.cs`
+- [x] T022 [P] [US1] If DEBUG marker stage is compiled, mark its completion in `C:\Users\dusel\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\TerrariaArcRaiders\Adapters\WorldGen\Passes\ArcStageZ_TestMarker.cs`
+
+Notes:
+- Stage completion is recorded via `ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(...)` in each pass.
+- Debug-only completion uses `ArcWorldGenStage.StageZ_TestMarker` (does not affect main stage ordering).
 
 **Checkpoint**: An Arc world generated with indicators enabled contains visible per-stage markers.
 
