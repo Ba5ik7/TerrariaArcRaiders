@@ -25,6 +25,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             {
                 ArcWorldSystem.IsArcWorld = false;
                 ArcWorldSystem.WorldData = ArcWorldData.NonArc();
+                ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
                 return;
             }
 
@@ -38,6 +39,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
                 ArcWorldSystem.WorldData = ArcWorldData.NonArc();
                 ArcWorldGenLog.Info("Arc validation failed; reverting to non-Arc for safety.");
             }
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

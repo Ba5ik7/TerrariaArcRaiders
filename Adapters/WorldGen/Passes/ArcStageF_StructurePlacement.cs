@@ -1,5 +1,6 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
+using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Adapters.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen;
 
@@ -20,6 +21,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             progress.Message = "Arc structure placement";
             ArcWorldGenLog.StageOrder("Stage F", "Structure Placement (placeholder)");
             // No-op placeholder to maintain stage order visibility; avoid any tile loops until structure logic exists.
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

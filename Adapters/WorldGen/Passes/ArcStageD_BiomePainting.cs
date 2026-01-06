@@ -1,5 +1,6 @@
 using Terraria.IO;
 using Terraria.WorldBuilding;
+using TerrariaArcRaiders.Adapters.Systems;
 using TerrariaArcRaiders.Adapters.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen;
 
@@ -20,6 +21,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             progress.Message = "Arc biome painting";
             ArcWorldGenLog.StageOrder("Stage D", "Biome Painting (placeholder)");
             // No-op placeholder; future passes must operate within planned rectangles to avoid full-world scans.
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }

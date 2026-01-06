@@ -22,6 +22,8 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             ArcWorldGenLog.StageOrder("Stage G", "Raid Anchors (reserved only)");
             // No-op placeholder; reserved sites are already recorded for future placement (bounded list, no scans).
             _ = ArcWorldSystem.WorldData?.ReservedSites;
+
+            ArcWorldSystem.WorldGenIndicatorRunState.MarkCompleted(Stage);
         }
     }
 }
