@@ -27,11 +27,5 @@ namespace TerrariaArcRaiders.Adapters.Systems
                 totalWeight += pass.Weight;
             }
         }
-
-        public override void PostWorldGen()
-        {
-            // Place indicators after ALL worldgen passes (including other mods) to avoid later tasks overwriting them.
-            ArcStageI_VisualIndicators.TryPlaceIndicators();
-        }
     }
 }

@@ -26,7 +26,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             TryPlaceIndicators(progress);
         }
 
-        internal static void TryPlaceIndicators(GenerationProgress progress = null)
+        internal static void TryPlaceIndicators(GenerationProgress progress = null, bool overwriteExistingTiles = false)
         {
             if (!ArcWorldSystem.IsArcWorld)
             {
@@ -61,9 +61,9 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
                 var placements = layout.BuildHubBoardPlacements(hub, stagesToShow, worldWidth: Main.maxTilesX, worldHeight: Main.maxTilesY);
 
                 var placer = new ArcWorldGenIndicatorPlacer();
-                _ = placer.TryPlaceIndicatorBoard(hub, placements);
+                _ = placer.TryPlaceIndicatorBoard(hub, placements, overwriteExistingTiles);
 
-                TryPlaceReservedSiteMarker(data, hub);
+                TryPlaceReservedSiteMarker(data, hub, overwriteExistingTiles);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
             }
         }
 
-        private static void TryPlaceReservedSiteMarker(ArcWorldData data, IntRect hub)
+        private static void TryPlaceReservedSiteMarker(ArcWorldData data, IntRect hub, bool overwriteExistingTiles)
         {
             if (data?.ReservedSites == null || data.ReservedSites.Count == 0)
             {
@@ -109,9 +109,22 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
                     var baseTile = Framing.GetTileSafely(x, y);
                     var torchTile = Framing.GetTileSafely(x, y - 1);
-                    if (baseTile.HasTile || torchTile.HasTile)
+                    if (!overwriteExistingTiles && (baseTile.HasTile || torchTile.HasTile))
                     {
                         continue;
+                    }
+
+                    if (overwriteExistingTiles)
+                    {
+                        if (baseTile.HasTile)
+                        {
+                            TWorldGen.KillTile(x, y, fail: false, effectOnly: false, noItem: true);
+                        }
+
+                        if (torchTile.HasTile)
+                        {
+                            TWorldGen.KillTile(x, y - 1, fail: false, effectOnly: false, noItem: true);
+                        }
                     }
 
                     if (!TWorldGen.PlaceTile(x, y, TileID.GoldBrick, mute: true, forced: false, plr: -1, style: 0))

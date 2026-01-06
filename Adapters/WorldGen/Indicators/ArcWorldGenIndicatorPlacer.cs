@@ -10,7 +10,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 {
     internal sealed class ArcWorldGenIndicatorPlacer
     {
-        public bool TryPlaceIndicatorBoard(IntRect hubRegion, IReadOnlyList<ArcWorldGenIndicatorPlacement> placements)
+        public bool TryPlaceIndicatorBoard(IntRect hubRegion, IReadOnlyList<ArcWorldGenIndicatorPlacement> placements, bool overwriteExistingTiles)
         {
             if (!hubRegion.IsValid || placements == null || placements.Count == 0)
             {
@@ -25,13 +25,13 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
             for (var i = 0; i < placementCount; i++)
             {
-                succeededAny |= TryPlaceStageMarker(hubRegion, placements[i]);
+                succeededAny |= TryPlaceStageMarker(hubRegion, placements[i], overwriteExistingTiles);
             }
 
             return succeededAny;
         }
 
-        private static bool TryPlaceStageMarker(IntRect hubRegion, ArcWorldGenIndicatorPlacement placement)
+        private static bool TryPlaceStageMarker(IntRect hubRegion, ArcWorldGenIndicatorPlacement placement, bool overwriteExistingTiles)
         {
             // Marker footprint:
             // - NxN solid block base at (x,y) .. (x+N-1,y+N-1)
@@ -47,9 +47,9 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
             var baseTileType = GetMarkerBaseTileType(placement.Stage);
 
-            var placedFrame = TryPlaceFramePerimeter(x, y);
-            var placedBase = TryPlaceSolidBase(x, y, baseTileType);
-            var placedTorch = TryPlaceTorch(x + (ArcWorldGenIndicatorConstants.BaseSizeTiles / 2), y - 1);
+            var placedFrame = TryPlaceFramePerimeter(x, y, overwriteExistingTiles);
+            var placedBase = TryPlaceSolidBase(x, y, baseTileType, overwriteExistingTiles);
+            var placedTorch = TryPlaceTorch(x + (ArcWorldGenIndicatorConstants.BaseSizeTiles / 2), y - 1, overwriteExistingTiles);
 
             if (placedFrame || placedBase || placedTorch)
             {
@@ -88,7 +88,7 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
             return TWorldGen.InWorld(frameLeft, frameTop, 10) && TWorldGen.InWorld(frameRight, frameBottom, 10);
         }
 
-        private static bool TryPlaceSolidBase(int x, int y, ushort tileType)
+        private static bool TryPlaceSolidBase(int x, int y, ushort tileType, bool overwriteExistingTiles)
         {
             var anyPlaced = false;
             var size = ArcWorldGenIndicatorConstants.BaseSizeTiles;
@@ -97,14 +97,14 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
             {
                 for (var dy = 0; dy < size; dy++)
                 {
-                    anyPlaced |= TryPlaceTileIfEmpty(x + dx, y + dy, tileType);
+                    anyPlaced |= TryPlaceTile(x + dx, y + dy, tileType, overwriteExistingTiles);
                 }
             }
 
             return anyPlaced;
         }
 
-        private static bool TryPlaceFramePerimeter(int baseX, int baseY)
+        private static bool TryPlaceFramePerimeter(int baseX, int baseY, bool overwriteExistingTiles)
         {
             var pad = ArcWorldGenIndicatorConstants.FramePaddingTiles;
             var size = ArcWorldGenIndicatorConstants.BaseSizeTiles;
@@ -129,19 +129,19 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
                         continue;
                     }
 
-                    anyPlaced |= TryPlaceTileIfEmpty(baseX + dx, baseY + dy, frameTileType);
+                    anyPlaced |= TryPlaceTile(baseX + dx, baseY + dy, frameTileType, overwriteExistingTiles);
                 }
             }
 
             return anyPlaced;
         }
 
-        private static bool TryPlaceTorch(int x, int y)
+        private static bool TryPlaceTorch(int x, int y, bool overwriteExistingTiles)
         {
-            return TryPlaceTileIfEmpty(x, y, TileID.Torches);
+            return TryPlaceTile(x, y, TileID.Torches, overwriteExistingTiles);
         }
 
-        private static bool TryPlaceTileIfEmpty(int x, int y, ushort tileType)
+        private static bool TryPlaceTile(int x, int y, ushort tileType, bool overwriteExistingTiles)
         {
             if (!TWorldGen.InWorld(x, y, 10))
             {
@@ -149,13 +149,18 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
             }
 
             var tile = Framing.GetTileSafely(x, y);
-            if (tile.HasTile)
+            if (tile.HasTile && !overwriteExistingTiles)
             {
                 return false;
             }
 
             try
             {
+                if (overwriteExistingTiles && tile.HasTile)
+                {
+                    TWorldGen.KillTile(x, y, fail: false, effectOnly: false, noItem: true);
+                }
+
                 return TWorldGen.PlaceTile(x, y, tileType, mute: true, forced: false, plr: -1, style: 0);
             }
             catch

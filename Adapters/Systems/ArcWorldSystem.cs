@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaArcRaiders.Adapters.WorldGen;
+using TerrariaArcRaiders.Adapters.WorldGen.Passes;
 using TerrariaArcRaiders.Core.WorldGen;
 using TerrariaArcRaiders.Core.WorldGen.Indicators;
 
@@ -20,6 +22,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
         internal static ArcWorldData WorldData { get; set; } = ArcWorldData.NonArc();
         internal static ArcWorldSelection Selection { get; set; } = ArcWorldSelection.FromSeedText(null);
         internal static ArcWorldGenIndicatorRunState WorldGenIndicatorRunState { get; } = new();
+        private static bool WorldGenIndicatorsPlacedThisSession { get; set; }
 
         public static bool TryGetHubRegion(out IntRect hub)
         {
@@ -97,6 +100,36 @@ namespace TerrariaArcRaiders.Adapters.Systems
             }
         }
 
+        public override void PostUpdateWorld()
+        {
+            // Place indicators once after the world is fully loaded and ticking.
+            // This avoids other mods' worldgen/post-worldgen actions overwriting them.
+            if (WorldGenIndicatorsPlacedThisSession || Main.gameMenu)
+            {
+                return;
+            }
+
+            if (!IsArcWorld)
+            {
+                return;
+            }
+
+            var config = ArcRaidersConfig.Instance;
+            if (config == null || !config.WorldGenVisualIndicatorsEnabled)
+            {
+                return;
+            }
+
+            // Server/SinglePlayer only: world mutations must not be performed on multiplayer clients.
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
+
+            WorldGenIndicatorsPlacedThisSession = true;
+            ArcStageI_VisualIndicators.TryPlaceIndicators(overwriteExistingTiles: true);
+        }
+
         public override void SaveWorldHeader(TagCompound tag)
         {
             if (!IsArcWorld)
@@ -159,6 +192,7 @@ namespace TerrariaArcRaiders.Adapters.Systems
             WorldData = ArcWorldData.NonArc();
             Selection = ArcWorldSelection.FromSeedText(null);
             WorldGenIndicatorRunState.Reset();
+            WorldGenIndicatorsPlacedThisSession = false;
         }
     }
 }
