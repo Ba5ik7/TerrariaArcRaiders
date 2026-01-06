@@ -23,6 +23,11 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
+            TryPlaceIndicators(progress);
+        }
+
+        internal static void TryPlaceIndicators(GenerationProgress progress = null)
+        {
             if (!ArcWorldSystem.IsArcWorld)
             {
                 return;
@@ -34,7 +39,10 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
                 return;
             }
 
-            progress.Message = "Arc visual indicators";
+            if (progress != null)
+            {
+                progress.Message = "Arc visual indicators";
+            }
 
             try
             {
@@ -46,8 +54,6 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Passes
 
                 var hub = data.SafeHubRegion;
 
-                // Until per-stage completion marking is wired (T014+), fall back to "all stages".
-                // Once completion is tracked, this will place markers only for completed stages.
                 var completedStages = ArcWorldSystem.WorldGenIndicatorRunState.GetCompletedStagesInOrder();
                 var stagesToShow = completedStages.Count > 0 ? completedStages : GetAllStagesInOrder();
 

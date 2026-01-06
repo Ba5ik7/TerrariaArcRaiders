@@ -18,5 +18,10 @@ Configs: {
 			Label: Enable dev tools (raid entry/exit debug)
 			Tooltip: ""
 		}
+
+		WorldGenVisualIndicatorsEnabled: {
+			Label: Enable Arc worldgen visual indicators (debug)
+			Tooltip: ""
+		}
 	}
 }

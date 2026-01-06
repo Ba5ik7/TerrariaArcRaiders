@@ -34,8 +34,9 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
         private static bool TryPlaceStageMarker(IntRect hubRegion, ArcWorldGenIndicatorPlacement placement)
         {
             // Marker footprint:
-            // - 2x2 solid block base at (x,y) .. (x+1,y+1)
-            // - torch at (x, y-1)
+            // - NxN solid block base at (x,y) .. (x+N-1,y+N-1)
+            // - glass "frame" perimeter around the base, padded by P tiles
+            // - torch above the base (centered)
             var x = placement.TileX;
             var y = placement.TileY;
 
@@ -46,10 +47,11 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
             var baseTileType = GetMarkerBaseTileType(placement.Stage);
 
-            var placedBase = TryPlaceSolid2x2(x, y, baseTileType);
-            var placedTorch = TryPlaceTorch(x, y - 1);
+            var placedFrame = TryPlaceFramePerimeter(x, y);
+            var placedBase = TryPlaceSolidBase(x, y, baseTileType);
+            var placedTorch = TryPlaceTorch(x + (ArcWorldGenIndicatorConstants.BaseSizeTiles / 2), y - 1);
 
-            if (placedBase || placedTorch)
+            if (placedFrame || placedBase || placedTorch)
             {
                 FrameArea(x, y);
                 return true;
@@ -60,27 +62,74 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
         private static bool TryClampMarkerPositionToHub(IntRect hubRegion, ref int x, ref int y)
         {
-            // Ensure (x,y) .. (x+1,y+1) and (x,y-1) remain in-bounds and within hub bounds.
+            // Ensure marker footprint remains within hub bounds (frame) and in-world.
             if (!hubRegion.IsValid)
             {
                 return false;
             }
 
-            x = Clamp(x, hubRegion.X, Math.Max(hubRegion.X, hubRegion.Right - 2));
-            y = Clamp(y, hubRegion.Y + 1, Math.Max(hubRegion.Y + 1, hubRegion.Bottom - 2));
+            var framePad = ArcWorldGenIndicatorConstants.FramePaddingTiles;
+            var baseSize = ArcWorldGenIndicatorConstants.BaseSizeTiles;
 
-            return TWorldGen.InWorld(x, y, 10) && TWorldGen.InWorld(x + 1, y + 1, 10) && TWorldGen.InWorld(x, y - 1, 10);
+            var minBaseX = hubRegion.X + framePad;
+            var maxBaseX = hubRegion.Right - baseSize - framePad;
+            var minBaseY = hubRegion.Y + framePad;
+            var maxBaseY = hubRegion.Bottom - baseSize - framePad;
+
+            x = Clamp(x, minBaseX, Math.Max(minBaseX, maxBaseX));
+            y = Clamp(y, minBaseY, Math.Max(minBaseY, maxBaseY));
+
+            var frameLeft = x - framePad;
+            var frameTop = y - framePad;
+            var frameRight = x + (baseSize - 1) + framePad;
+            var frameBottom = y + (baseSize - 1) + framePad;
+
+            // The torch is inside the frame area (y-1), so checking the frame corners is sufficient.
+            return TWorldGen.InWorld(frameLeft, frameTop, 10) && TWorldGen.InWorld(frameRight, frameBottom, 10);
         }
 
-        private static bool TryPlaceSolid2x2(int x, int y, ushort tileType)
+        private static bool TryPlaceSolidBase(int x, int y, ushort tileType)
         {
             var anyPlaced = false;
-            // Bounded: always 4 tiles.
-            for (var dx = 0; dx <= 1; dx++)
+            var size = ArcWorldGenIndicatorConstants.BaseSizeTiles;
+            // Bounded: always NxN tiles.
+            for (var dx = 0; dx < size; dx++)
             {
-                for (var dy = 0; dy <= 1; dy++)
+                for (var dy = 0; dy < size; dy++)
                 {
                     anyPlaced |= TryPlaceTileIfEmpty(x + dx, y + dy, tileType);
+                }
+            }
+
+            return anyPlaced;
+        }
+
+        private static bool TryPlaceFramePerimeter(int baseX, int baseY)
+        {
+            var pad = ArcWorldGenIndicatorConstants.FramePaddingTiles;
+            var size = ArcWorldGenIndicatorConstants.BaseSizeTiles;
+            // Bounded: perimeter tiles for a fixed-size square.
+            var anyPlaced = false;
+
+            // Use a vanilla tile type so worlds remain loadable if the mod is disabled/removed.
+            const ushort frameTileType = TileID.Glass;
+
+            var left = -pad;
+            var right = (size - 1) + pad;
+            var top = -pad;
+            var bottom = (size - 1) + pad;
+
+            for (var dx = left; dx <= right; dx++)
+            {
+                for (var dy = top; dy <= bottom; dy++)
+                {
+                    var isPerimeter = dx == left || dx == right || dy == top || dy == bottom;
+                    if (!isPerimeter)
+                    {
+                        continue;
+                    }
+
+                    anyPlaced |= TryPlaceTileIfEmpty(baseX + dx, baseY + dy, frameTileType);
                 }
             }
 
@@ -117,10 +166,17 @@ namespace TerrariaArcRaiders.Adapters.WorldGen.Indicators
 
         private static void FrameArea(int x, int y)
         {
-            // Bounded: constant framing area around the marker (4 cols x 5 rows).
-            for (var dx = -1; dx <= 2; dx++)
+            var pad = ArcWorldGenIndicatorConstants.FramePaddingTiles;
+            var size = ArcWorldGenIndicatorConstants.BaseSizeTiles;
+            // Bounded: constant framing area around the marker footprint.
+            var left = -pad - 1;
+            var right = (size - 1) + pad + 1;
+            var top = -pad - 1;
+            var bottom = (size - 1) + pad + 1;
+
+            for (var dx = left; dx <= right; dx++)
             {
-                for (var dy = -2; dy <= 2; dy++)
+                for (var dy = top; dy <= bottom; dy++)
                 {
                     var fx = x + dx;
                     var fy = y + dy;

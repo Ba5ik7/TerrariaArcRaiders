@@ -20,13 +20,15 @@ namespace TerrariaArcRaiders.Core.WorldGen.Indicators
 
             // Keep placements within the planned hub region to avoid needing world-size inputs and to ensure bounded work.
             // Layout: column-major grid starting near hub top-left (with padding), deterministic by stage order.
-            var paddingX = 2;
-            var paddingY = 2;
-            var startX = hubRegion.X + paddingX;
-            var startY = hubRegion.Y + paddingY;
+            // Spacing is derived from marker footprint so markers do not overlap.
+            var startX = hubRegion.X + ArcWorldGenIndicatorConstants.BoardPaddingTiles + ArcWorldGenIndicatorConstants.FramePaddingTiles;
+            var startY = hubRegion.Y + ArcWorldGenIndicatorConstants.BoardPaddingTiles + ArcWorldGenIndicatorConstants.FramePaddingTiles;
 
-            var usableHeight = Math.Max(1, hubRegion.Height - (paddingY * 2));
-            var maxRows = Math.Max(1, usableHeight / 2);
+            var stepX = ArcWorldGenIndicatorConstants.MarkerSizeTiles + ArcWorldGenIndicatorConstants.MarkerSpacingTiles;
+            var stepY = ArcWorldGenIndicatorConstants.MarkerSizeTiles + ArcWorldGenIndicatorConstants.MarkerSpacingTiles;
+
+            var usableHeight = Math.Max(1, hubRegion.Height - ((ArcWorldGenIndicatorConstants.BoardPaddingTiles + ArcWorldGenIndicatorConstants.FramePaddingTiles) * 2));
+            var maxRows = Math.Max(1, usableHeight / Math.Max(1, stepY));
 
             var placements = new List<ArcWorldGenIndicatorPlacement>(stages.Count);
             for (var index = 0; index < stages.Count; index++)
@@ -35,12 +37,18 @@ namespace TerrariaArcRaiders.Core.WorldGen.Indicators
                 var column = index / maxRows;
                 var row = index % maxRows;
 
-                var tileX = startX + (column * 3);
-                var tileY = startY + (row * 2);
+                // tileX/tileY are the top-left of the marker base.
+                var tileX = startX + (column * stepX);
+                var tileY = startY + (row * stepY);
 
-                // Clamp within hub bounds defensively.
-                tileX = Clamp(tileX, hubRegion.X, Math.Max(hubRegion.X, hubRegion.Right - 1));
-                tileY = Clamp(tileY, hubRegion.Y, Math.Max(hubRegion.Y, hubRegion.Bottom - 1));
+                // Clamp within hub bounds defensively, accounting for marker footprint.
+                var minBaseX = hubRegion.X + ArcWorldGenIndicatorConstants.FramePaddingTiles;
+                var maxBaseX = hubRegion.Right - ArcWorldGenIndicatorConstants.BaseSizeTiles - ArcWorldGenIndicatorConstants.FramePaddingTiles;
+                var minBaseY = hubRegion.Y + ArcWorldGenIndicatorConstants.FramePaddingTiles;
+                var maxBaseY = hubRegion.Bottom - ArcWorldGenIndicatorConstants.BaseSizeTiles - ArcWorldGenIndicatorConstants.FramePaddingTiles;
+
+                tileX = Clamp(tileX, minBaseX, Math.Max(minBaseX, maxBaseX));
+                tileY = Clamp(tileY, minBaseY, Math.Max(minBaseY, maxBaseY));
 
                 // Optionally clamp to world bounds when provided.
                 if (worldWidth > 0)

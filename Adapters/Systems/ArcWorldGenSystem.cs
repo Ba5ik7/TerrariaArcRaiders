@@ -26,13 +26,12 @@ namespace TerrariaArcRaiders.Adapters.Systems
             {
                 totalWeight += pass.Weight;
             }
+        }
 
-            if (ArcRaidersConfig.Instance.WorldGenVisualIndicatorsEnabled)
-            {
-                var indicatorPass = new ArcStageI_VisualIndicators();
-                tasks.Add(indicatorPass);
-                totalWeight += indicatorPass.Weight;
-            }
+        public override void PostWorldGen()
+        {
+            // Place indicators after ALL worldgen passes (including other mods) to avoid later tasks overwriting them.
+            ArcStageI_VisualIndicators.TryPlaceIndicators();
         }
     }
 }
